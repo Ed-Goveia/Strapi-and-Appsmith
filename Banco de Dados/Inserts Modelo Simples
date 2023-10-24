@@ -28,7 +28,7 @@ INSERT INTO VACINA (nome) VALUES
   ('Lyme');
 
 -- Inserir registros na tabela necessita (relacionamento n,n)
-INSERT INTO necessita (fk_ANIMAL_id, fk_VACINA_id, data, qtd) VALUES
+INSERT INTO NECESSITA (fk_ANIMAL_id, fk_VACINA_id, data, qtd) VALUES
   (1, 1, '2023-01-15', 1.0),
   (1, 2, '2023-02-20', 0.8),
   (2, 1, '2023-01-10', 1.0),
