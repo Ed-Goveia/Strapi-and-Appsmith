@@ -67,6 +67,18 @@ services:
     depends_on:
       - appDB
 
+  appsmith:
+    image: index.docker.io/appsmith/appsmith-ee
+    container_name: appsmith_com_strapi
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./stacks:/appsmith-stacks
+    restart: unless-stopped
+    networks:
+      - app
+
 
 volumes:
   app-data:
