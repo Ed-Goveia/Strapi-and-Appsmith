@@ -12,11 +12,44 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "nome": {
+    "Nome": {
       "type": "string"
     },
-    "data": {
+    "Data_nascimento": {
       "type": "date"
+    },
+    "Sexo": {
+      "type": "enumeration",
+      "enum": [
+        "Macho",
+        "Femea"
+      ],
+      "required": true
+    },
+    "Status": {
+      "type": "enumeration",
+      "enum": [
+        "Liberado para o trabalho",
+        "Baixado",
+        "Passando por medicacao"
+      ],
+      "required": true
+    },
+    "Racao_Diaria": {
+      "type": "integer"
+    },
+    "Idade": {
+      "type": "integer",
+      "max": 25
+    },
+    "Racaos": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::racao.racao",
+      "mappedBy": "Animal"
+    },
+    "Box": {
+      "type": "string"
     }
   }
 }
