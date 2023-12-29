@@ -1,0 +1,22 @@
+{
+  "kind": "collectionType",
+  "collectionName": "condutors",
+  "info": {
+    "singularName": "condutor",
+    "pluralName": "condutors",
+    "displayName": "Condutor",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Nome": {
+      "type": "text"
+    },
+    "Matricula": {
+      "type": "string"
+    }
+  }
+}

@@ -13,7 +13,8 @@
   "pluginOptions": {},
   "attributes": {
     "Nome": {
-      "type": "string"
+      "type": "string",
+      "unique": true
     },
     "Data_nascimento": {
       "type": "date"
@@ -50,6 +51,28 @@
     },
     "Box": {
       "type": "string"
+    },
+    "Alocacao": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::unidade.unidade"
+    },
+    "Condutor_principal": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::condutor.condutor"
+    },
+    "Condutor_secundario": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::condutor.condutor"
+    },
+    "Foto": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": false
     }
   }
 }

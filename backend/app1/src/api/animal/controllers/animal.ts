@@ -25,7 +25,7 @@ export default factories.createCoreController("api::animal.animal",
 
 
 function calcularIdade(dataNascimento) {
-    console.warn(dataNascimento);
+   // console.warn(dataNascimento);
     if (!dataNascimento) {
         return null; // Retorna null se a data de nascimento for nula
     }
@@ -41,5 +41,6 @@ function calcularIdade(dataNascimento) {
     }
 
     return diferencaEmAnos;
+    //teste de edição dentro do container
 }
 
