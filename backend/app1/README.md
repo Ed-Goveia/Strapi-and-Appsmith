@@ -1,3 +1,11 @@
+# Para rodar o projeto
+
+Renomear o arquivo env para .env 
+docker-compose up -d 
+
+
+
+
 # 🚀 Getting started with Strapi
 
 Strapi comes with a full featured [Command Line Interface](https://docs.strapi.io/dev-docs/cli) (CLI) which lets you scaffold and manage your project in seconds.
