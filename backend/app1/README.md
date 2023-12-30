@@ -1,6 +1,5 @@
 # Para rodar o projeto
 
-Renomear o arquivo env para .env 
 docker-compose up -d 
 
 
