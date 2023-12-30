@@ -14,7 +14,9 @@
   "attributes": {
     "Nome": {
       "type": "string",
-      "unique": true
+      "unique": true,
+      "required": true,
+      "minLength": 1
     },
     "Data_nascimento": {
       "type": "date"
@@ -68,11 +70,12 @@
       "target": "api::condutor.condutor"
     },
     "Foto": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
       "allowedTypes": [
         "images"
-      ],
-      "type": "media",
-      "multiple": false
+      ]
     }
   }
 }
