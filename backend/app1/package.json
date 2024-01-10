@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "description": "A Strapi application",
   "scripts": {
-    "develop": "npx nodemon index.ts",
+    "develop": "strapi develop",
     "start": "strapi start",
     "build": "strapi build",
     "strapi": "strapi"
@@ -12,8 +12,7 @@
   "dependencies": {
     "@notum-cz/strapi-plugin-content-versioning": "^1.2.7",
     "@strapi/plugin-cloud": "4.15.5",
-    "@strapi/plugin-documentation": "^4.0.5",
-    "@strapi/plugin-graphql": "^4.16.2",
+    "@strapi/plugin-email": "^4.16.2",
     "@strapi/plugin-i18n": "^4.15.0",
     "@strapi/plugin-users-permissions": "^4.15.0",
     "@strapi/strapi": "4.15.5",
