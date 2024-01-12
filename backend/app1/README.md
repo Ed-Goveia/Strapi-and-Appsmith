@@ -5,7 +5,6 @@
 docker-compose build
 ```
 
-SAgora 
 ### `2 comando`
 ```
 docker-compose up -d 
