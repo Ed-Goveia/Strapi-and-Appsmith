@@ -4,10 +4,14 @@
 ```
 docker-compose build
 ```
+
+SAgora 
 ### `2 comando`
 ```
 docker-compose up -d 
 ```
+
+SOs containers Dockers devem estar funcionando agora
 
 
 
