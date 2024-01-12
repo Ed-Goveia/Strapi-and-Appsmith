@@ -10,7 +10,7 @@ docker-compose build
 docker-compose up -d 
 ```
 
-Os containers Dockers devem estar funcionando agora
+Apagar o banco e executar o código do arquivo bac.sql
 
 
 
