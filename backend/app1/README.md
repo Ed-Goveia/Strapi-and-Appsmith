@@ -1,7 +1,10 @@
 # Para rodar o projeto
+
+### `1 comando`
 ```
 docker-compose build
 ```
+### `2 comando`
 ```
 docker-compose up -d 
 ```
