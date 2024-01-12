@@ -1,6 +1,6 @@
 # Para rodar o projeto
-
-docker-compose up -d 
+1 - docker-compose build
+2 - docker-compose up -d 
 
 
 
