@@ -10,7 +10,7 @@ docker-compose build
 docker-compose up -d 
 ```
 
-Apagar o banco e executar o código do arquivo bac.sql
+Apagar o banco e executar o código do arquivo bac.sql, que está na pasta Banco da dados
 
 
 
