@@ -11,7 +11,7 @@ SAgora
 docker-compose up -d 
 ```
 
-SOs containers Dockers devem estar funcionando agora
+Os containers Dockers devem estar funcionando agora
 
 
 
