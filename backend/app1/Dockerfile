@@ -7,7 +7,7 @@ ENV NODE_ENV=${NODE_ENV}
 WORKDIR /opt/
 COPY package.json package-lock.json ./
 RUN npm install -g npm@10.2.5 && npm config set fetch-retry-maxtimeout 600000 -g && npm install
-
+RUN npm rebuild sharp
 WORKDIR /opt/app
 COPY . .
 ENV PATH /opt/node_modules/.bin:$PATH
