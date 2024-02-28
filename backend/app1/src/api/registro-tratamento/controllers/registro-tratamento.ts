@@ -1,0 +1,7 @@
+/**
+ * registro-tratamento controller
+ */
+
+import { factories } from '@strapi/strapi'
+
+export default factories.createCoreController('api::registro-tratamento.registro-tratamento');

@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "animal_tratamento_medicos",
+  "info": {
+    "singularName": "animal-tratamento-medico",
+    "pluralName": "animal-tratamento-medicos",
+    "displayName": "Animal_tratamento_medico",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "animal": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::animal.animal",
+      "inversedBy": "animal_tratamento_medicos"
+    },
+    "tratamento_medicos": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::tratamento-medico.tratamento-medico",
+      "mappedBy": "animal_tratamento_medico"
+    }
+  }
+}

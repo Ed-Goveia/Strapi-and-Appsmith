@@ -17,6 +17,10 @@
     },
     "Matricula": {
       "type": "string"
+    },
+    "ativo": {
+      "type": "boolean",
+      "required": false
     }
   }
 }

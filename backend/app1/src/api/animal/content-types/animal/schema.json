@@ -19,7 +19,8 @@
       "minLength": 1
     },
     "Data_nascimento": {
-      "type": "date"
+      "type": "date",
+      "required": true
     },
     "Sexo": {
       "type": "enumeration",
@@ -29,17 +30,18 @@
       ],
       "required": true
     },
-    "Status": {
+    "Status_operacional": {
       "type": "enumeration",
       "enum": [
         "Liberado para o trabalho",
         "Baixado",
-        "Passando por medicacao"
+        "Em treinamento"
       ],
       "required": true
     },
     "Racao_Diaria": {
-      "type": "integer"
+      "type": "integer",
+      "required": true
     },
     "Idade": {
       "type": "integer",
@@ -52,7 +54,8 @@
       "mappedBy": "Animal"
     },
     "Box": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "Alocacao": {
       "type": "relation",
@@ -69,13 +72,74 @@
       "relation": "oneToOne",
       "target": "api::condutor.condutor"
     },
-    "Foto": {
+    "Foto_frente": {
       "type": "media",
       "multiple": false,
       "required": false,
       "allowedTypes": [
         "images"
       ]
+    },
+    "Status_saude": {
+      "type": "enumeration",
+      "enum": [
+        "em medicação",
+        "em medicação restritiva",
+        "sem medicação"
+      ],
+      "required": true
+    },
+    "Foto_direita": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "Foto_esquerda": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "Status_geral": {
+      "type": "enumeration",
+      "enum": [
+        "Operacional",
+        "Desativado"
+      ],
+      "required": true
+    },
+    "Justificativa_baixado": {
+      "type": "string",
+      "minLength": 1
+    },
+    "animal_tratamento_medicos": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::animal-tratamento-medico.animal-tratamento-medico",
+      "mappedBy": "animal"
+    },
+    "e_alergicos": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::e-alergico.e-alergico",
+      "mappedBy": "animal"
+    },
+    "registro_obs": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::registro-obs.registro-obs",
+      "mappedBy": "animal"
     }
   }
 }

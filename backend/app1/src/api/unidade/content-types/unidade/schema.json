@@ -14,11 +14,14 @@
   "attributes": {
     "Nome": {
       "type": "text",
-      "required": true
+      "required": false
     },
     "Endereco": {
       "type": "text",
-      "required": true
+      "required": false
+    },
+    "ativo": {
+      "type": "boolean"
     }
   }
 }

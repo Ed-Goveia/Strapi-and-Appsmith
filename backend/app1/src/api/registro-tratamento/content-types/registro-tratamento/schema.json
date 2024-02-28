@@ -1,0 +1,25 @@
+{
+  "kind": "collectionType",
+  "collectionName": "registro_tratamentos",
+  "info": {
+    "singularName": "registro-tratamento",
+    "pluralName": "registro-tratamentos",
+    "displayName": "Registro_tratamento"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "registro": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::registro.registro"
+    },
+    "tratamento_medico": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::tratamento-medico.tratamento-medico"
+    }
+  }
+}

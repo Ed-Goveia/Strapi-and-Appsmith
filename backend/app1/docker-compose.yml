@@ -68,7 +68,7 @@ services:
       - appDB_bac
 
   appsmith:
-    image: index.docker.io/appsmith/appsmith-ee
+    image: index.docker.io/appsmith/appsmith-ee:v1.9.50
     container_name: appsmith_bac
     ports:
       - "8091:80"

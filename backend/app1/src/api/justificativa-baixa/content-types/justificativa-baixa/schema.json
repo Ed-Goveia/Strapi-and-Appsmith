@@ -1,0 +1,24 @@
+{
+  "kind": "collectionType",
+  "collectionName": "justificativa_baixas",
+  "info": {
+    "singularName": "justificativa-baixa",
+    "pluralName": "justificativa-baixas",
+    "displayName": "Justificativa_baixa",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "justificativa": {
+      "type": "string"
+    },
+    "animal": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::animal.animal"
+    }
+  }
+}

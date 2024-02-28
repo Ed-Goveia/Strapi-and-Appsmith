@@ -1,0 +1,53 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tratamento_medicos",
+  "info": {
+    "singularName": "tratamento-medico",
+    "pluralName": "tratamento-medicos",
+    "displayName": "Tratamento_medico",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "data_inicio": {
+      "type": "date",
+      "required": true
+    },
+    "data_fim": {
+      "type": "date",
+      "required": false
+    },
+    "tipo_tratamento": {
+      "type": "enumeration",
+      "enum": [
+        "de rotina",
+        "esporádico"
+      ],
+      "required": true
+    },
+    "tratamento_atual": {
+      "type": "boolean"
+    },
+    "animal_tratamento_medico": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::animal-tratamento-medico.animal-tratamento-medico",
+      "inversedBy": "tratamento_medicos"
+    },
+    "e_causados": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::e-causado.e-causado",
+      "mappedBy": "tratamento_medico"
+    },
+    "possuis": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::possui.possui",
+      "mappedBy": "tratamento_medico"
+    }
+  }
+}
