@@ -123,12 +123,6 @@
       "type": "string",
       "minLength": 1
     },
-    "animal_tratamento_medicos": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::animal-tratamento-medico.animal-tratamento-medico",
-      "mappedBy": "animal"
-    },
     "e_alergicos": {
       "type": "relation",
       "relation": "oneToMany",
@@ -139,6 +133,15 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::registro-obs.registro-obs",
+      "mappedBy": "animal"
+    },
+    "peso": {
+      "type": "float"
+    },
+    "animal_tratamento_medicos": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::animal-tratamento-medico.animal-tratamento-medico",
       "mappedBy": "animal"
     }
   }

@@ -31,12 +31,6 @@
     "tratamento_atual": {
       "type": "boolean"
     },
-    "animal_tratamento_medico": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::animal-tratamento-medico.animal-tratamento-medico",
-      "inversedBy": "tratamento_medicos"
-    },
     "e_causados": {
       "type": "relation",
       "relation": "oneToMany",
@@ -47,6 +41,22 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::possui.possui",
+      "mappedBy": "tratamento_medico"
+    },
+    "consulta": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::consulta.consulta"
+    },
+    "animal": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::animal.animal"
+    },
+    "animal_tratamento_medico": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::animal-tratamento-medico.animal-tratamento-medico",
       "mappedBy": "tratamento_medico"
     }
   }

@@ -4,7 +4,7 @@
   "info": {
     "singularName": "animal-tratamento-medico",
     "pluralName": "animal-tratamento-medicos",
-    "displayName": "Animal_tratamento_medico",
+    "displayName": "Animal_Tratamento_Medico",
     "description": ""
   },
   "options": {
@@ -18,11 +18,11 @@
       "target": "api::animal.animal",
       "inversedBy": "animal_tratamento_medicos"
     },
-    "tratamento_medicos": {
+    "tratamento_medico": {
       "type": "relation",
-      "relation": "oneToMany",
+      "relation": "oneToOne",
       "target": "api::tratamento-medico.tratamento-medico",
-      "mappedBy": "animal_tratamento_medico"
+      "inversedBy": "animal_tratamento_medico"
     }
   }
 }
