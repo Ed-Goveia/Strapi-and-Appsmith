@@ -19,8 +19,22 @@ export default factories.createCoreController("api::animal.animal",
        //console.warn(data);
        return { data , meta };
     },
-  })
 
+    async update(ctx){
+
+      
+      let  { data, meta } = await super.find(ctx);
+      
+      
+      data.forEach(item =>{
+        if(item.attributes.Status_geral == 'Desativado'){
+          let message = ("o animal está como desativado, não é possível é possível reverter para Operacional")
+          return {message};
+        }
+      });
+      return {data, meta};
+    }
+  })
 );
 
 
@@ -42,5 +56,5 @@ function calcularIdade(dataNascimento) {
 
     return diferencaEmAnos;
     //teste de edição dentro do container
-}
+};
 
