@@ -20,21 +20,30 @@ export default factories.createCoreController("api::animal.animal",
        return { data , meta };
     },
 
+    
+    /**
+     *Sobrescrição do método update. Se o animal estiver com Status_geral == "Desativado",
+     * não será possível fazer qualquer alteração nele, apenas se Status_geral == "Operacional".
+     * @param ctx 
+     * @author Mateus Lannes Cunha
+     */
     async update(ctx){
+      
+      let entry = await super.findOne(ctx);
 
-      
-      let  { data, meta } = await super.find(ctx);
-      
-      
-      data.forEach(item =>{
-        if(item.attributes.Status_geral == 'Desativado'){
-          let message = ("o animal está como desativado, não é possível é possível reverter para Operacional")
-          return {message};
-        }
-      });
-      return {data, meta};
+      if(entry.data.attributes.Status_geral == "Desativado"){
+        console.log("animal desativado, não é possível volta-lo para Operacional");
+
+      }else if(entry.data.attributes.Status_geral == "Operacional"){
+
+        entry = await super.update(ctx); 
+        console.log("atualização concluida");
+      }
+      return entry;
+
+      },
     }
-  })
+  )
 );
 
 
