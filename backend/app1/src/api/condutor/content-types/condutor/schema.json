@@ -15,12 +15,17 @@
     "Nome": {
       "type": "text"
     },
-    "Matricula": {
+    "rg": {
       "type": "string"
     },
     "ativo": {
       "type": "boolean",
       "required": false
+    },
+    "unidade": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::unidade.unidade"
     }
   }
 }
