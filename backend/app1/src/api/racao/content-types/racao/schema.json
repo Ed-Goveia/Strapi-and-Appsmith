@@ -20,6 +20,9 @@
       "relation": "manyToOne",
       "target": "api::animal.animal",
       "inversedBy": "Racaos"
+    },
+    "data_de_registro": {
+      "type": "date"
     }
   }
 }

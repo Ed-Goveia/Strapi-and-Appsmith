@@ -13,10 +13,9 @@
   "pluginOptions": {},
   "attributes": {
     "Nome": {
-      "type": "text"
-    },
-    "rg": {
-      "type": "string"
+      "type": "text",
+      "required": true,
+      "minLength": 3
     },
     "ativo": {
       "type": "boolean",
@@ -26,6 +25,9 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::unidade.unidade"
+    },
+    "rg": {
+      "type": "biginteger"
     }
   }
 }

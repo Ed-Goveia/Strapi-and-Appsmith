@@ -13,7 +13,9 @@
   "pluginOptions": {},
   "attributes": {
     "tipo_de_medico": {
-      "type": "string"
+      "type": "string",
+      "required": true,
+      "minLength": 1
     }
   }
 }

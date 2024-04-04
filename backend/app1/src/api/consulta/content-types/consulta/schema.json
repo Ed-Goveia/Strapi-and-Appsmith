@@ -13,13 +13,13 @@
   "pluginOptions": {},
   "attributes": {
     "data_consulta": {
-      "type": "date"
-    },
-    "local_atendimento": {
-      "type": "string"
+      "type": "date",
+      "required": true
     },
     "anamnese": {
-      "type": "text"
+      "type": "text",
+      "required": true,
+      "minLength": 1
     },
     "medico": {
       "type": "relation",
@@ -30,6 +30,29 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::tratamento-medico.tratamento-medico"
+    },
+    "exame_fisico": {
+      "type": "string",
+      "required": true,
+      "minLength": 1
+    },
+    "diagnostico": {
+      "type": "string",
+      "required": true,
+      "minLength": 1
+    },
+    "animal": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::animal.animal"
+    },
+    "retorno": {
+      "type": "boolean",
+      "required": true
+    },
+    "removido": {
+      "type": "boolean",
+      "default": false
     }
   }
 }

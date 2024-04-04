@@ -24,16 +24,19 @@
       "target": "api::medicamento.medicamento"
     },
     "dosagem": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "data_inicio": {
-      "type": "date"
+      "type": "date",
+      "required": true
     },
     "data_fim": {
       "type": "date"
     },
     "medicamento_aplicado": {
-      "type": "boolean"
+      "type": "boolean",
+      "required": true
     },
     "prescricao": {
       "type": "text"
