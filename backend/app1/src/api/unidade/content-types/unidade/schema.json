@@ -19,7 +19,8 @@
     },
     "Endereco": {
       "type": "text",
-      "required": false
+      "required": true,
+      "minLength": 1
     },
     "ativo": {
       "type": "boolean"

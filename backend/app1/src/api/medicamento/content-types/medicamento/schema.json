@@ -15,11 +15,13 @@
     "nome": {
       "type": "string",
       "required": true,
-      "minLength": 3
+      "minLength": 3,
+      "unique": true
     },
     "ativo": {
       "type": "boolean",
-      "required": false
+      "required": false,
+      "default": true
     }
   }
 }
