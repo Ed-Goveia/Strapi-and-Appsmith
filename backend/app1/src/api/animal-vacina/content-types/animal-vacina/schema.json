@@ -1,0 +1,48 @@
+{
+  "kind": "collectionType",
+  "collectionName": "animal_vacinas",
+  "info": {
+    "singularName": "animal-vacina",
+    "pluralName": "animal-vacinas",
+    "displayName": "animal_vacina",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "data_proxima_aplicacao": {
+      "type": "date"
+    },
+    "anotacoes": {
+      "type": "string"
+    },
+    "lembrete_em_dias": {
+      "type": "integer",
+      "required": true
+    },
+    "data_aplicacao": {
+      "type": "date",
+      "required": false
+    },
+    "dose_atual": {
+      "type": "integer",
+      "required": true
+    },
+    "animal": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::animal.animal"
+    },
+    "tipo_vacina": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::tipo-vacina.tipo-vacina"
+    },
+    "aplicado": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tipo_aplicacaos",
+  "info": {
+    "singularName": "tipo-aplicacao",
+    "pluralName": "tipo-aplicacaos",
+    "displayName": "Tipo_aplicacao",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nome_produto": {
+      "type": "string",
+      "required": true
+    },
+    "duracao_em_dias": {
+      "type": "integer",
+      "required": true,
+      "min": 1
+    },
+    "tipo_produto_antiparasitario": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::tipo-produto-antiparasitario.tipo-produto-antiparasitario"
+    },
+    "ativo": {
+      "type": "boolean",
+      "required": true,
+      "default": true
+    }
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "kind": "collectionType",
+  "collectionName": "animal_aplicacaos",
+  "info": {
+    "singularName": "animal-aplicacao",
+    "pluralName": "animal-aplicacaos",
+    "displayName": "Animal_Aplicacao",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "animal": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::animal.animal"
+    },
+    "tipo_aplicacao": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::tipo-aplicacao.tipo-aplicacao"
+    },
+    "lembrete_em_dias": {
+      "type": "integer",
+      "required": true
+    },
+    "data_aplicacao": {
+      "type": "date",
+      "required": false
+    },
+    "data_proxima_aplicacao": {
+      "type": "date",
+      "required": false
+    },
+    "aplicado": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}
