@@ -1,0 +1,58 @@
+{
+  "kind": "collectionType",
+  "collectionName": "consultas",
+  "info": {
+    "singularName": "consulta",
+    "pluralName": "consultas",
+    "displayName": "Consulta",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "data_consulta": {
+      "type": "date",
+      "required": true
+    },
+    "anamnese": {
+      "type": "text",
+      "required": true,
+      "minLength": 1
+    },
+    "medico": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::medico.medico"
+    },
+    "tratamento_medicos": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::tratamento-medico.tratamento-medico"
+    },
+    "exame_fisico": {
+      "type": "string",
+      "required": true,
+      "minLength": 1
+    },
+    "diagnostico": {
+      "type": "string",
+      "required": true,
+      "minLength": 1
+    },
+    "animal": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::animal.animal"
+    },
+    "retorno": {
+      "type": "boolean",
+      "required": true
+    },
+    "removido": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}

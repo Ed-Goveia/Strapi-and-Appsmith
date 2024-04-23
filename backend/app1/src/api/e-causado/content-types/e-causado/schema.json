@@ -1,0 +1,27 @@
+{
+  "kind": "collectionType",
+  "collectionName": "e_causados",
+  "info": {
+    "singularName": "e-causado",
+    "pluralName": "e-causados",
+    "displayName": "E_causado",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "tratamento_medico": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::tratamento-medico.tratamento-medico",
+      "inversedBy": "e_causados"
+    },
+    "doenca": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::doenca.doenca"
+    }
+  }
+}

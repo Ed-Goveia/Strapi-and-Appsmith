@@ -1,0 +1,27 @@
+{
+  "kind": "collectionType",
+  "collectionName": "medicamentos",
+  "info": {
+    "singularName": "medicamento",
+    "pluralName": "medicamentos",
+    "displayName": "Medicamento",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nome": {
+      "type": "string",
+      "required": true,
+      "minLength": 3,
+      "unique": true
+    },
+    "ativo": {
+      "type": "boolean",
+      "required": false,
+      "default": true
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "kind": "collectionType",
+  "collectionName": "doencas",
+  "info": {
+    "singularName": "doenca",
+    "pluralName": "doencas",
+    "displayName": "Doenca",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nome": {
+      "type": "string",
+      "required": true,
+      "minLength": 1
+    },
+    "ativo": {
+      "type": "boolean"
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "kind": "collectionType",
+  "collectionName": "unidades",
+  "info": {
+    "singularName": "unidade",
+    "pluralName": "unidades",
+    "displayName": "Unidade",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Nome": {
+      "type": "text",
+      "required": true,
+      "minLength": 1
+    },
+    "Endereco": {
+      "type": "text",
+      "required": true,
+      "minLength": 1
+    },
+    "ativo": {
+      "type": "boolean"
+    }
+  }
+}

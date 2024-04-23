@@ -1,0 +1,18 @@
+{
+  "kind": "collectionType",
+  "collectionName": "categoria_obs_saudes",
+  "info": {
+    "singularName": "categoria-obs-saude",
+    "pluralName": "categoria-obs-saudes",
+    "displayName": "Categoria_obs_saude"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "observacao": {
+      "type": "text"
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "kind": "collectionType",
+  "collectionName": "registros",
+  "info": {
+    "singularName": "registro",
+    "pluralName": "registros",
+    "displayName": "Registro"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "dia": {
+      "type": "date"
+    },
+    "hora": {
+      "type": "time"
+    }
+  }
+}

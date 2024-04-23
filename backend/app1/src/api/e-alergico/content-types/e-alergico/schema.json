@@ -1,0 +1,27 @@
+{
+  "kind": "collectionType",
+  "collectionName": "e_alergicos",
+  "info": {
+    "singularName": "e-alergico",
+    "pluralName": "e-alergicos",
+    "displayName": "E_alergico",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "animal": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::animal.animal",
+      "inversedBy": "e_alergicos"
+    },
+    "medicamento": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::medicamento.medicamento"
+    }
+  }
+}

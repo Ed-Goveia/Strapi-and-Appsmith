@@ -1,0 +1,33 @@
+{
+  "kind": "collectionType",
+  "collectionName": "condutors",
+  "info": {
+    "singularName": "condutor",
+    "pluralName": "condutors",
+    "displayName": "Condutor",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Nome": {
+      "type": "text",
+      "required": true,
+      "minLength": 3
+    },
+    "ativo": {
+      "type": "boolean",
+      "required": false
+    },
+    "unidade": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::unidade.unidade"
+    },
+    "rg": {
+      "type": "biginteger"
+    }
+  }
+}

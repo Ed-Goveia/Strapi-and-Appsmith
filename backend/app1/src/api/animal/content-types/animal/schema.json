@@ -1,0 +1,224 @@
+{
+  "kind": "collectionType",
+  "collectionName": "animals",
+  "info": {
+    "singularName": "animal",
+    "pluralName": "animals",
+    "displayName": "Animal",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Nome": {
+      "type": "string",
+      "unique": true,
+      "required": true,
+      "minLength": 3,
+      "regex": "^[A-Za-záàâãéèêíìóòôõúùç ]+$"
+    },
+    "Data_nascimento": {
+      "type": "date",
+      "required": true
+    },
+    "Sexo": {
+      "type": "enumeration",
+      "enum": [
+        "Macho",
+        "Femea"
+      ],
+      "required": true
+    },
+    "Status_operacional": {
+      "type": "enumeration",
+      "enum": [
+        "Liberado para o trabalho",
+        "Baixado",
+        "Em treinamento"
+      ],
+      "required": true
+    },
+    "Racao_Diaria": {
+      "type": "integer",
+      "required": false,
+      "min": 1
+    },
+    "Idade": {
+      "type": "integer",
+      "max": 25,
+      "min": 0
+    },
+    "Racaos": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::racao.racao",
+      "mappedBy": "Animal"
+    },
+    "Box": {
+      "type": "string",
+      "required": true,
+      "minLength": 1
+    },
+    "Alocacao": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::unidade.unidade"
+    },
+    "Condutor_principal": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::condutor.condutor"
+    },
+    "Condutor_secundario": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::condutor.condutor"
+    },
+    "Foto_frente": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "Status_saude": {
+      "type": "enumeration",
+      "enum": [
+        "Em medicação",
+        "Em medicação restritiva",
+        "Sem medicação"
+      ],
+      "required": true,
+      "default": "Sem medicação"
+    },
+    "Foto_direita": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "Foto_esquerda": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "Status_geral": {
+      "type": "enumeration",
+      "enum": [
+        "Operacional",
+        "Desativado"
+      ],
+      "required": true
+    },
+    "Justificativa_baixado": {
+      "type": "string",
+      "minLength": 3
+    },
+    "e_alergicos": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::e-alergico.e-alergico",
+      "mappedBy": "animal"
+    },
+    "registro_obs": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::registro-obs.registro-obs",
+      "mappedBy": "animal"
+    },
+    "peso": {
+      "type": "float"
+    },
+    "animal_tratamento_medicos": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::animal-tratamento-medico.animal-tratamento-medico",
+      "mappedBy": "animal"
+    },
+    "numero_patrimonio": {
+      "type": "biginteger",
+      "required": true,
+      "min": "1",
+      "unique": true
+    },
+    "numero_de_microchip": {
+      "type": "biginteger",
+      "required": true,
+      "min": "01",
+      "unique": true
+    },
+    "raca": {
+      "type": "enumeration",
+      "enum": [
+        "Pastor Alemão",
+        "Pastor Belga de Malinois"
+      ],
+      "required": true
+    },
+    "cor": {
+      "type": "enumeration",
+      "enum": [
+        "Preto",
+        "Cinza",
+        "Fulvo",
+        "Fulvo Encarvoado",
+        "Bicolor",
+        "Branco"
+      ],
+      "required": true
+    },
+    "nome_do_proprietario_anterior": {
+      "type": "string",
+      "required": true,
+      "minLength": 1,
+      "regex": "^[A-Za-záàâãéèêíìóòôõúùç ]+$"
+    },
+    "forma_aquisicao": {
+      "type": "enumeration",
+      "enum": [
+        "Nascimento no Canil PMES",
+        "Nascimento em Canil externo",
+        "Compra",
+        "Doação",
+        "Resgate"
+      ],
+      "required": true
+    },
+    "especializacao": {
+      "type": "enumeration",
+      "enum": [
+        "Faro de Munição e Explosivos",
+        "Faro de Entorpecentes",
+        "Faro de Dinheiro",
+        "Busca e Apreensão",
+        "Em treinamento"
+      ],
+      "required": true
+    },
+    "data_aquisicao": {
+      "type": "date",
+      "required": true
+    },
+    "data_inclusao_carga": {
+      "type": "date",
+      "required": true
+    },
+    "valor_compra": {
+      "type": "float"
+    }
+  }
+}

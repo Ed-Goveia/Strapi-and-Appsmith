@@ -1,0 +1,26 @@
+{
+  "kind": "collectionType",
+  "collectionName": "registro_obss",
+  "info": {
+    "singularName": "registro-obs",
+    "pluralName": "registro-obss",
+    "displayName": "Registro_obs"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "categoria_obs_saude": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::categoria-obs-saude.categoria-obs-saude"
+    },
+    "animal": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::animal.animal",
+      "inversedBy": "registro_obs"
+    }
+  }
+}

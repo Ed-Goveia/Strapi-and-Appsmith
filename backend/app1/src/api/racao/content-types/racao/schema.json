@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "racaos",
+  "info": {
+    "singularName": "racao",
+    "pluralName": "racaos",
+    "displayName": "Racao",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Quantidade": {
+      "type": "integer"
+    },
+    "Animal": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::animal.animal",
+      "inversedBy": "Racaos"
+    },
+    "data_de_registro": {
+      "type": "date"
+    }
+  }
+}
