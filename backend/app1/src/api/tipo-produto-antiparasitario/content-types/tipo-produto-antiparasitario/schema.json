@@ -1,0 +1,18 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tipo_produto_antiparasitarios",
+  "info": {
+    "singularName": "tipo-produto-antiparasitario",
+    "pluralName": "tipo-produto-antiparasitarios",
+    "displayName": "tipo_produto_antiparasitario"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "descricao": {
+      "type": "string"
+    }
+  }
+}

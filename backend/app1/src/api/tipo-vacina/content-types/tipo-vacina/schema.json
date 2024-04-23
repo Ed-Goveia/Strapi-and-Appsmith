@@ -1,0 +1,112 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tipo_vacinas",
+  "info": {
+    "singularName": "tipo-vacina",
+    "pluralName": "tipo-vacinas",
+    "displayName": "Tipo_Vacina",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "doses_totais": {
+      "type": "integer"
+    },
+    "foto_etiqueta": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "nome_vacina": {
+      "type": "enumeration",
+      "enum": [
+        "BIOFEL PCH®",
+        "Bagovac Raiva",
+        "Bio Max",
+        "Bioraiva®Pet",
+        "Bronchi-Shield III",
+        "BronchiGuard",
+        "Canigen® CH(A2) P/ L",
+        "Canigen® R",
+        "Defense Bronch",
+        "Defensor",
+        "Elevencel Vac V11",
+        "Fel-O-Vax Lv-K IV + CaliciVax",
+        "Feligen® CRP gato",
+        "Feligen® CRP/R gato",
+        "Feline-4®",
+        "Felocell CVR",
+        "Felocell CVR-C",
+        "GiardiaVax",
+        "Guard-Vac LCI/GP",
+        "IMUNOCAN PUPPY®",
+        "imunocan",
+        "Imunocan V8®",
+        "Nobivac Canine",
+        "Nobivac Feline 1-HCPCh",
+        "Nobivac Feline 1-HCPCh+FeLV",
+        "Nobivac KC",
+        "Nobivac Puppy",
+        "Nobivac Raiva",
+        "Nobivac® DHPPi+L",
+        "Pneumodog®",
+        "Poly 10 (V10)",
+        "Providean® Viratec 10 CVL",
+        "Providean® Viratec 6 CV",
+        "Providean® Viratec DP",
+        "Rabisin®-i",
+        "Rabmune",
+        "Raiva I®",
+        "Recombitek® C4/CV",
+        "Recombitek® C6/CV",
+        "Recombitek® Max 5-CvK/4L",
+        "Recombitek® Oral Bordetella",
+        "Ronvac",
+        "Tetanovac Anatoxina Tetânica",
+        "Tri Baby Vac",
+        "Vacina Pet Imune V11",
+        "Vanguard 8 Oral",
+        "Vanguard HTLP 5 CV-L",
+        "Vanguard Plus",
+        "Vencovmax 11",
+        "Vencovmax 12",
+        "Vencovmax 8",
+        "Vencothree Puppy"
+      ]
+    },
+    "tipo_vacina": {
+      "type": "enumeration",
+      "enum": [
+        "Antirrábica",
+        "Antitetânica",
+        "Dermatofitose",
+        "Específica",
+        "FelV",
+        "Giárdia",
+        "Leishmaniose Visceral",
+        "Leptospirose",
+        "Múltipla",
+        "Tosse dos Canis",
+        "V3",
+        "V4",
+        "V5",
+        "V6",
+        "V8",
+        "V10",
+        "V11",
+        "V12"
+      ]
+    },
+    "ativo": {
+      "type": "boolean",
+      "default": true,
+      "required": true
+    }
+  }
+}
