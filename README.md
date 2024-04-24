@@ -1,10 +1,10 @@
 # ProjetoBAC teste
 
-O arquivo deploy.sh deve ser rodado no servidor na pasta /opt/deploy_bac/deploy_bac/ <br>
+O arquivo deploy.sh deve ser rodado no servidor na pasta /opt/deploy_bac/deploy_bac/ <br><br>
 
 
 
-Esse arquivo verifica se tem alterações na branch develop e sobe o strapi e atualiza o banco de dados. <br>
+Esse arquivo verifica se tem alterações na branch develop e sobe o strapi e atualiza o banco de dados. <br><br>
 
 ````
 bash ./deploy.sh
