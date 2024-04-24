@@ -1,5 +1,5 @@
 #!/bin/bash
-# Lista de nomes de imagens a serem paradas
+# Lista de nomes de imagens a serem paradas.
 NOMES_IMAGENS=("app:latest")
 
 # Loop pelas imagens
