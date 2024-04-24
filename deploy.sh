@@ -33,7 +33,7 @@ SQL_FILE="/opt/deploy_bac/deploy_bac/BancoDeDados/bac_homologacao.sql"
 DB_HOST="10.243.144.200"
 DB_USER="root"
 DB_PORT="3307"
-DB_PASS="12345"
+DB_PASS=""
 DB_NAME="bac"
 
 # Verificar se o arquivo SQL existe
