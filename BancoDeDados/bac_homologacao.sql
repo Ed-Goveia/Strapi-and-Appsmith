@@ -22,9 +22,7 @@ SET time_zone = "+00:00";
 --
 CREATE DATABASE IF NOT EXISTS `bac` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
 USE `bac`;
-SELECT CONCAT('DROP TABLE ', table_name, ';')
-FROM information_schema.tables
-WHERE table_schema = 'bac';
+
 
 -- --------------------------------------------------------
 
