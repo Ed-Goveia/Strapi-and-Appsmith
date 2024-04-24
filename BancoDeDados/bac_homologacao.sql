@@ -3,10 +3,11 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: host.docker.internal:3307
--- Tempo de geração: 24/04/2024 às 18:30
+-- Tempo de geração: 24/04/2024 às 19:52
 -- Versão do servidor: 8.3.0
 -- Versão do PHP: 8.2.8
 
+SET FOREIGN_KEY_CHECKS=0;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
@@ -20,12 +21,10 @@ SET time_zone = "+00:00";
 --
 -- Banco de dados: `bac`
 --
-DROP DATABASE IF EXISTS bac;
 CREATE DATABASE IF NOT EXISTS `bac` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
 USE `bac`;
 
-
--- ---------------------------------------------------------
+-- --------------------------------------------------------
 
 --
 -- Estrutura para tabela `admin_permissions`
@@ -4240,6 +4239,7 @@ ALTER TABLE `up_users`
 ALTER TABLE `up_users_role_links`
   ADD CONSTRAINT `up_users_role_links_fk` FOREIGN KEY (`user_id`) REFERENCES `up_users` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `up_users_role_links_inv_fk` FOREIGN KEY (`role_id`) REFERENCES `up_roles` (`id`) ON DELETE CASCADE;
+SET FOREIGN_KEY_CHECKS=1;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
