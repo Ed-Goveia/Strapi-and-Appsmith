@@ -1,5 +1,4 @@
 #!/bin/bash
-
 # Lista de nomes de imagens a serem paradas
 NOMES_IMAGENS=("app:latest")
 
