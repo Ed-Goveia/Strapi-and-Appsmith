@@ -21,11 +21,6 @@
       "required": true,
       "minLength": 1
     },
-    "medico": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::medico.medico"
-    },
     "tratamento_medicos": {
       "type": "relation",
       "relation": "oneToMany",
@@ -53,6 +48,11 @@
     "removido": {
       "type": "boolean",
       "default": false
+    },
+    "users_permissions_user": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
     }
   }
 }
