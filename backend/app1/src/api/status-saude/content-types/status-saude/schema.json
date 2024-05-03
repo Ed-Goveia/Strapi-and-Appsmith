@@ -1,0 +1,19 @@
+{
+  "kind": "collectionType",
+  "collectionName": "status_saudes",
+  "info": {
+    "singularName": "status-saude",
+    "pluralName": "status-saudes",
+    "displayName": "Status_Saude",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Nome": {
+      "type": "string"
+    }
+  }
+}

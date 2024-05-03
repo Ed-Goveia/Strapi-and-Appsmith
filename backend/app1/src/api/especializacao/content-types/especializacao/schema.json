@@ -1,0 +1,19 @@
+{
+  "kind": "collectionType",
+  "collectionName": "especializacaos",
+  "info": {
+    "singularName": "especializacao",
+    "pluralName": "especializacaos",
+    "displayName": "Especializacao",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Nome": {
+      "type": "string"
+    }
+  }
+}

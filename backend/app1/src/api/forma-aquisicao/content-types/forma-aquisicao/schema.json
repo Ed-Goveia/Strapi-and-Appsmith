@@ -1,0 +1,19 @@
+{
+  "kind": "collectionType",
+  "collectionName": "forma_aquisicaos",
+  "info": {
+    "singularName": "forma-aquisicao",
+    "pluralName": "forma-aquisicaos",
+    "displayName": "Forma_Aquisicao",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Nome": {
+      "type": "string"
+    }
+  }
+}

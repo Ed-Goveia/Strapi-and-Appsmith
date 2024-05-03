@@ -1,0 +1,19 @@
+{
+  "kind": "collectionType",
+  "collectionName": "cor_animals",
+  "info": {
+    "singularName": "cor-animal",
+    "pluralName": "cor-animals",
+    "displayName": "Cor_Animal",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Nome": {
+      "type": "string"
+    }
+  }
+}

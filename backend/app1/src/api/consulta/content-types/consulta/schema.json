@@ -21,11 +21,6 @@
       "required": true,
       "minLength": 1
     },
-    "tratamento_medicos": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::tratamento-medico.tratamento-medico"
-    },
     "exame_fisico": {
       "type": "string",
       "required": true,

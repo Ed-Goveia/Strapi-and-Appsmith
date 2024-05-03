@@ -1,0 +1,19 @@
+{
+  "kind": "collectionType",
+  "collectionName": "racas",
+  "info": {
+    "singularName": "raca",
+    "pluralName": "racas",
+    "displayName": "Raca",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Nome": {
+      "type": "string"
+    }
+  }
+}

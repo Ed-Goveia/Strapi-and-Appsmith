@@ -1,0 +1,19 @@
+{
+  "kind": "collectionType",
+  "collectionName": "status_operacionals",
+  "info": {
+    "singularName": "status-operacional",
+    "pluralName": "status-operacionals",
+    "displayName": "Status_Operacional",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Nome": {
+      "type": "string"
+    }
+  }
+}
