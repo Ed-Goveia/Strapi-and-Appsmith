@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: host.docker.internal:3307
--- Tempo de geração: 03/05/2024 às 18:02
+-- Tempo de geração: 03/05/2024 às 18:06
 -- Versão do servidor: 8.3.0
 -- Versão do PHP: 8.2.8
 
