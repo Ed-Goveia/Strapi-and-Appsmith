@@ -31,10 +31,10 @@ export default factories.createCoreController("api::animal.animal",
       
       let entry = await super.findOne(ctx);
 
-      if(entry.data.attributes.Status_geral == "Desativado"){
+      if(entry.data.attributes.status_geral == false){
         console.log("animal desativado, não é possível volta-lo para Operacional");
 
-      }else if(entry.data.attributes.Status_geral == "Operacional"){
+      }else if(entry.data.attributes.status_geral == true){
 
         entry = await super.update(ctx); 
         console.log("atualização concluida");

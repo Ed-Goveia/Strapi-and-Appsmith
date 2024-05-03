@@ -1,0 +1,19 @@
+{
+  "kind": "collectionType",
+  "collectionName": "sexos",
+  "info": {
+    "singularName": "sexo",
+    "pluralName": "sexos",
+    "displayName": "Sexo",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Nome": {
+      "type": "string"
+    }
+  }
+}

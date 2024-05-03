@@ -35,14 +35,31 @@
       "relation": "oneToOne",
       "target": "api::animal.animal"
     },
-    "tipo_vacina": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::tipo-vacina.tipo-vacina"
-    },
     "aplicado": {
       "type": "boolean",
       "default": false
+    },
+    "foto_etiqueta": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "doses_totais": {
+      "type": "integer"
+    },
+    "nome_vacina": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::marca-vacina.marca-vacina"
+    },
+    "intervalo_entre_doses": {
+      "type": "integer"
     }
   }
 }
