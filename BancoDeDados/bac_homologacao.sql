@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: host.docker.internal:3307
--- Tempo de geração: 03/05/2024 às 16:17
+-- Tempo de geração: 03/05/2024 às 16:38
 -- Versão do servidor: 8.3.0
 -- Versão do PHP: 8.2.8
 
@@ -21,8 +21,6 @@ SET time_zone = "+00:00";
 --
 -- Banco de dados: `bac`
 --
-CREATE DATABASE IF NOT EXISTS `bac` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
-USE `bac`;
 
 -- --------------------------------------------------------
 
@@ -30,8 +28,9 @@ USE `bac`;
 -- Estrutura para tabela `admin_permissions`
 --
 
-CREATE TABLE IF NOT EXISTS `admin_permissions` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `admin_permissions`;
+CREATE TABLE `admin_permissions` (
+  `id` int UNSIGNED NOT NULL,
   `action` varchar(255) DEFAULT NULL,
   `action_parameters` json DEFAULT NULL,
   `subject` varchar(255) DEFAULT NULL,
@@ -40,11 +39,8 @@ CREATE TABLE IF NOT EXISTS `admin_permissions` (
   `created_at` datetime(6) DEFAULT NULL,
   `updated_at` datetime(6) DEFAULT NULL,
   `created_by_id` int UNSIGNED DEFAULT NULL,
-  `updated_by_id` int UNSIGNED DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `admin_permissions_created_by_id_fk` (`created_by_id`),
-  KEY `admin_permissions_updated_by_id_fk` (`updated_by_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=763 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `updated_by_id` int UNSIGNED DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Despejando dados para a tabela `admin_permissions`
@@ -360,17 +356,13 @@ INSERT INTO `admin_permissions` (`id`, `action`, `action_parameters`, `subject`,
 -- Estrutura para tabela `admin_permissions_role_links`
 --
 
-CREATE TABLE IF NOT EXISTS `admin_permissions_role_links` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `admin_permissions_role_links`;
+CREATE TABLE `admin_permissions_role_links` (
+  `id` int UNSIGNED NOT NULL,
   `permission_id` int UNSIGNED DEFAULT NULL,
   `role_id` int UNSIGNED DEFAULT NULL,
-  `permission_order` double UNSIGNED DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `admin_permissions_role_links_unique` (`permission_id`,`role_id`),
-  KEY `admin_permissions_role_links_fk` (`permission_id`),
-  KEY `admin_permissions_role_links_inv_fk` (`role_id`),
-  KEY `admin_permissions_role_links_order_inv_fk` (`permission_order`)
-) ENGINE=InnoDB AUTO_INCREMENT=763 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `permission_order` double UNSIGNED DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Despejando dados para a tabela `admin_permissions_role_links`
@@ -685,19 +677,17 @@ INSERT INTO `admin_permissions_role_links` (`id`, `permission_id`, `role_id`, `p
 -- Estrutura para tabela `admin_roles`
 --
 
-CREATE TABLE IF NOT EXISTS `admin_roles` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `admin_roles`;
+CREATE TABLE `admin_roles` (
+  `id` int UNSIGNED NOT NULL,
   `name` varchar(255) DEFAULT NULL,
   `code` varchar(255) DEFAULT NULL,
   `description` varchar(255) DEFAULT NULL,
   `created_at` datetime(6) DEFAULT NULL,
   `updated_at` datetime(6) DEFAULT NULL,
   `created_by_id` int UNSIGNED DEFAULT NULL,
-  `updated_by_id` int UNSIGNED DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `admin_roles_created_by_id_fk` (`created_by_id`),
-  KEY `admin_roles_updated_by_id_fk` (`updated_by_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `updated_by_id` int UNSIGNED DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Despejando dados para a tabela `admin_roles`
@@ -714,8 +704,9 @@ INSERT INTO `admin_roles` (`id`, `name`, `code`, `description`, `created_at`, `u
 -- Estrutura para tabela `admin_users`
 --
 
-CREATE TABLE IF NOT EXISTS `admin_users` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `admin_users`;
+CREATE TABLE `admin_users` (
+  `id` int UNSIGNED NOT NULL,
   `firstname` varchar(255) DEFAULT NULL,
   `lastname` varchar(255) DEFAULT NULL,
   `username` varchar(255) DEFAULT NULL,
@@ -729,11 +720,8 @@ CREATE TABLE IF NOT EXISTS `admin_users` (
   `created_at` datetime(6) DEFAULT NULL,
   `updated_at` datetime(6) DEFAULT NULL,
   `created_by_id` int UNSIGNED DEFAULT NULL,
-  `updated_by_id` int UNSIGNED DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `admin_users_created_by_id_fk` (`created_by_id`),
-  KEY `admin_users_updated_by_id_fk` (`updated_by_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `updated_by_id` int UNSIGNED DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Despejando dados para a tabela `admin_users`
@@ -750,19 +738,14 @@ INSERT INTO `admin_users` (`id`, `firstname`, `lastname`, `username`, `email`, `
 -- Estrutura para tabela `admin_users_roles_links`
 --
 
-CREATE TABLE IF NOT EXISTS `admin_users_roles_links` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `admin_users_roles_links`;
+CREATE TABLE `admin_users_roles_links` (
+  `id` int UNSIGNED NOT NULL,
   `user_id` int UNSIGNED DEFAULT NULL,
   `role_id` int UNSIGNED DEFAULT NULL,
   `role_order` double UNSIGNED DEFAULT NULL,
-  `user_order` double UNSIGNED DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `admin_users_roles_links_unique` (`user_id`,`role_id`),
-  KEY `admin_users_roles_links_fk` (`user_id`),
-  KEY `admin_users_roles_links_inv_fk` (`role_id`),
-  KEY `admin_users_roles_links_order_fk` (`role_order`),
-  KEY `admin_users_roles_links_order_inv_fk` (`user_order`)
-) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `user_order` double UNSIGNED DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Despejando dados para a tabela `admin_users_roles_links`
@@ -784,8 +767,9 @@ INSERT INTO `admin_users_roles_links` (`id`, `user_id`, `role_id`, `role_order`,
 -- Estrutura para tabela `animals`
 --
 
-CREATE TABLE IF NOT EXISTS `animals` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `animals`;
+CREATE TABLE `animals` (
+  `id` int UNSIGNED NOT NULL,
   `nome` varchar(255) DEFAULT NULL,
   `created_at` datetime(6) DEFAULT NULL,
   `updated_at` datetime(6) DEFAULT NULL,
@@ -801,11 +785,8 @@ CREATE TABLE IF NOT EXISTS `animals` (
   `data_aquisicao` date DEFAULT NULL,
   `data_inclusao_carga` date DEFAULT NULL,
   `valor_compra` double DEFAULT NULL,
-  `status_geral` tinyint(1) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `animals_created_by_id_fk` (`created_by_id`),
-  KEY `animals_updated_by_id_fk` (`updated_by_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=106 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `status_geral` tinyint(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Despejando dados para a tabela `animals`
@@ -822,15 +803,12 @@ INSERT INTO `animals` (`id`, `nome`, `created_at`, `updated_at`, `created_by_id`
 -- Estrutura para tabela `animals_alocacao_links`
 --
 
-CREATE TABLE IF NOT EXISTS `animals_alocacao_links` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `animals_alocacao_links`;
+CREATE TABLE `animals_alocacao_links` (
+  `id` int UNSIGNED NOT NULL,
   `animal_id` int UNSIGNED DEFAULT NULL,
-  `unidade_id` int UNSIGNED DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `animals_alocacao_links_unique` (`animal_id`,`unidade_id`),
-  KEY `animals_alocacao_links_fk` (`animal_id`),
-  KEY `animals_alocacao_links_inv_fk` (`unidade_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=248 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `unidade_id` int UNSIGNED DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Despejando dados para a tabela `animals_alocacao_links`
@@ -847,15 +825,12 @@ INSERT INTO `animals_alocacao_links` (`id`, `animal_id`, `unidade_id`) VALUES
 -- Estrutura para tabela `animals_condutor_principal_links`
 --
 
-CREATE TABLE IF NOT EXISTS `animals_condutor_principal_links` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `animals_condutor_principal_links`;
+CREATE TABLE `animals_condutor_principal_links` (
+  `id` int UNSIGNED NOT NULL,
   `animal_id` int UNSIGNED DEFAULT NULL,
-  `condutor_id` int UNSIGNED DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `animals_condutor_principal_links_unique` (`animal_id`,`condutor_id`),
-  KEY `animals_condutor_principal_links_fk` (`animal_id`),
-  KEY `animals_condutor_principal_links_inv_fk` (`condutor_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=253 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `condutor_id` int UNSIGNED DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Despejando dados para a tabela `animals_condutor_principal_links`
@@ -872,15 +847,12 @@ INSERT INTO `animals_condutor_principal_links` (`id`, `animal_id`, `condutor_id`
 -- Estrutura para tabela `animals_condutor_secundario_links`
 --
 
-CREATE TABLE IF NOT EXISTS `animals_condutor_secundario_links` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `animals_condutor_secundario_links`;
+CREATE TABLE `animals_condutor_secundario_links` (
+  `id` int UNSIGNED NOT NULL,
   `animal_id` int UNSIGNED DEFAULT NULL,
-  `condutor_id` int UNSIGNED DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `animals_condutor_secundario_links_unique` (`animal_id`,`condutor_id`),
-  KEY `animals_condutor_secundario_links_fk` (`animal_id`),
-  KEY `animals_condutor_secundario_links_inv_fk` (`condutor_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=254 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `condutor_id` int UNSIGNED DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Despejando dados para a tabela `animals_condutor_secundario_links`
@@ -897,15 +869,12 @@ INSERT INTO `animals_condutor_secundario_links` (`id`, `animal_id`, `condutor_id
 -- Estrutura para tabela `animals_cor_animal_links`
 --
 
-CREATE TABLE IF NOT EXISTS `animals_cor_animal_links` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `animals_cor_animal_links`;
+CREATE TABLE `animals_cor_animal_links` (
+  `id` int UNSIGNED NOT NULL,
   `animal_id` int UNSIGNED DEFAULT NULL,
-  `cor_animal_id` int UNSIGNED DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `animals_cor_animal_links_unique` (`animal_id`,`cor_animal_id`),
-  KEY `animals_cor_animal_links_fk` (`animal_id`),
-  KEY `animals_cor_animal_links_inv_fk` (`cor_animal_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `cor_animal_id` int UNSIGNED DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Despejando dados para a tabela `animals_cor_animal_links`
@@ -922,15 +891,12 @@ INSERT INTO `animals_cor_animal_links` (`id`, `animal_id`, `cor_animal_id`) VALU
 -- Estrutura para tabela `animals_especializacao_links`
 --
 
-CREATE TABLE IF NOT EXISTS `animals_especializacao_links` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `animals_especializacao_links`;
+CREATE TABLE `animals_especializacao_links` (
+  `id` int UNSIGNED NOT NULL,
   `animal_id` int UNSIGNED DEFAULT NULL,
-  `especializacao_id` int UNSIGNED DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `animals_especializacao_links_unique` (`animal_id`,`especializacao_id`),
-  KEY `animals_especializacao_links_fk` (`animal_id`),
-  KEY `animals_especializacao_links_inv_fk` (`especializacao_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `especializacao_id` int UNSIGNED DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Despejando dados para a tabela `animals_especializacao_links`
@@ -947,15 +913,12 @@ INSERT INTO `animals_especializacao_links` (`id`, `animal_id`, `especializacao_i
 -- Estrutura para tabela `animals_forma_aquisicao_links`
 --
 
-CREATE TABLE IF NOT EXISTS `animals_forma_aquisicao_links` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `animals_forma_aquisicao_links`;
+CREATE TABLE `animals_forma_aquisicao_links` (
+  `id` int UNSIGNED NOT NULL,
   `animal_id` int UNSIGNED DEFAULT NULL,
-  `forma_aquisicao_id` int UNSIGNED DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `animals_forma_aquisicao_links_unique` (`animal_id`,`forma_aquisicao_id`),
-  KEY `animals_forma_aquisicao_links_fk` (`animal_id`),
-  KEY `animals_forma_aquisicao_links_inv_fk` (`forma_aquisicao_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `forma_aquisicao_id` int UNSIGNED DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Despejando dados para a tabela `animals_forma_aquisicao_links`
@@ -972,15 +935,12 @@ INSERT INTO `animals_forma_aquisicao_links` (`id`, `animal_id`, `forma_aquisicao
 -- Estrutura para tabela `animals_raca_links`
 --
 
-CREATE TABLE IF NOT EXISTS `animals_raca_links` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `animals_raca_links`;
+CREATE TABLE `animals_raca_links` (
+  `id` int UNSIGNED NOT NULL,
   `animal_id` int UNSIGNED DEFAULT NULL,
-  `raca_id` int UNSIGNED DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `animals_raca_links_unique` (`animal_id`,`raca_id`),
-  KEY `animals_raca_links_fk` (`animal_id`),
-  KEY `animals_raca_links_inv_fk` (`raca_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `raca_id` int UNSIGNED DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Despejando dados para a tabela `animals_raca_links`
@@ -997,15 +957,12 @@ INSERT INTO `animals_raca_links` (`id`, `animal_id`, `raca_id`) VALUES
 -- Estrutura para tabela `animals_sexo_links`
 --
 
-CREATE TABLE IF NOT EXISTS `animals_sexo_links` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `animals_sexo_links`;
+CREATE TABLE `animals_sexo_links` (
+  `id` int UNSIGNED NOT NULL,
   `animal_id` int UNSIGNED DEFAULT NULL,
-  `sexo_id` int UNSIGNED DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `animals_sexo_links_unique` (`animal_id`,`sexo_id`),
-  KEY `animals_sexo_links_fk` (`animal_id`),
-  KEY `animals_sexo_links_inv_fk` (`sexo_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `sexo_id` int UNSIGNED DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Despejando dados para a tabela `animals_sexo_links`
@@ -1022,15 +979,12 @@ INSERT INTO `animals_sexo_links` (`id`, `animal_id`, `sexo_id`) VALUES
 -- Estrutura para tabela `animals_status_operacional_links`
 --
 
-CREATE TABLE IF NOT EXISTS `animals_status_operacional_links` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `animals_status_operacional_links`;
+CREATE TABLE `animals_status_operacional_links` (
+  `id` int UNSIGNED NOT NULL,
   `animal_id` int UNSIGNED DEFAULT NULL,
-  `status_operacional_id` int UNSIGNED DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `animals_status_operacional_links_unique` (`animal_id`,`status_operacional_id`),
-  KEY `animals_status_operacional_links_fk` (`animal_id`),
-  KEY `animals_status_operacional_links_inv_fk` (`status_operacional_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `status_operacional_id` int UNSIGNED DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Despejando dados para a tabela `animals_status_operacional_links`
@@ -1047,15 +1001,12 @@ INSERT INTO `animals_status_operacional_links` (`id`, `animal_id`, `status_opera
 -- Estrutura para tabela `animals_status_saude_links`
 --
 
-CREATE TABLE IF NOT EXISTS `animals_status_saude_links` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `animals_status_saude_links`;
+CREATE TABLE `animals_status_saude_links` (
+  `id` int UNSIGNED NOT NULL,
   `animal_id` int UNSIGNED DEFAULT NULL,
-  `status_saude_id` int UNSIGNED DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `animals_status_saude_links_unique` (`animal_id`,`status_saude_id`),
-  KEY `animals_status_saude_links_fk` (`animal_id`),
-  KEY `animals_status_saude_links_inv_fk` (`status_saude_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `status_saude_id` int UNSIGNED DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Despejando dados para a tabela `animals_status_saude_links`
@@ -1072,8 +1023,9 @@ INSERT INTO `animals_status_saude_links` (`id`, `animal_id`, `status_saude_id`) 
 -- Estrutura para tabela `animal_aplicacaos`
 --
 
-CREATE TABLE IF NOT EXISTS `animal_aplicacaos` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `animal_aplicacaos`;
+CREATE TABLE `animal_aplicacaos` (
+  `id` int UNSIGNED NOT NULL,
   `lembrete_em_dias` int DEFAULT NULL,
   `data_aplicacao` date DEFAULT NULL,
   `data_proxima_aplicacao` date DEFAULT NULL,
@@ -1081,11 +1033,8 @@ CREATE TABLE IF NOT EXISTS `animal_aplicacaos` (
   `updated_at` datetime(6) DEFAULT NULL,
   `created_by_id` int UNSIGNED DEFAULT NULL,
   `updated_by_id` int UNSIGNED DEFAULT NULL,
-  `aplicado` tinyint(1) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `animal_aplicacaos_created_by_id_fk` (`created_by_id`),
-  KEY `animal_aplicacaos_updated_by_id_fk` (`updated_by_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=83 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `aplicado` tinyint(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Despejando dados para a tabela `animal_aplicacaos`
@@ -1107,15 +1056,12 @@ INSERT INTO `animal_aplicacaos` (`id`, `lembrete_em_dias`, `data_aplicacao`, `da
 -- Estrutura para tabela `animal_aplicacaos_animal_links`
 --
 
-CREATE TABLE IF NOT EXISTS `animal_aplicacaos_animal_links` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `animal_aplicacaos_animal_links`;
+CREATE TABLE `animal_aplicacaos_animal_links` (
+  `id` int UNSIGNED NOT NULL,
   `animal_aplicacao_id` int UNSIGNED DEFAULT NULL,
-  `animal_id` int UNSIGNED DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `animal_aplicacaos_animal_links_unique` (`animal_aplicacao_id`,`animal_id`),
-  KEY `animal_aplicacaos_animal_links_fk` (`animal_aplicacao_id`),
-  KEY `animal_aplicacaos_animal_links_inv_fk` (`animal_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=163 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `animal_id` int UNSIGNED DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Despejando dados para a tabela `animal_aplicacaos_animal_links`
@@ -1137,15 +1083,12 @@ INSERT INTO `animal_aplicacaos_animal_links` (`id`, `animal_aplicacao_id`, `anim
 -- Estrutura para tabela `animal_aplicacaos_tipo_aplicacao_links`
 --
 
-CREATE TABLE IF NOT EXISTS `animal_aplicacaos_tipo_aplicacao_links` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `animal_aplicacaos_tipo_aplicacao_links`;
+CREATE TABLE `animal_aplicacaos_tipo_aplicacao_links` (
+  `id` int UNSIGNED NOT NULL,
   `animal_aplicacao_id` int UNSIGNED DEFAULT NULL,
-  `tipo_aplicacao_id` int UNSIGNED DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `animal_aplicacaos_tipo_aplicacao_links_unique` (`animal_aplicacao_id`,`tipo_aplicacao_id`),
-  KEY `animal_aplicacaos_tipo_aplicacao_links_fk` (`animal_aplicacao_id`),
-  KEY `animal_aplicacaos_tipo_aplicacao_links_inv_fk` (`tipo_aplicacao_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=158 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `tipo_aplicacao_id` int UNSIGNED DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Despejando dados para a tabela `animal_aplicacaos_tipo_aplicacao_links`
@@ -1167,17 +1110,15 @@ INSERT INTO `animal_aplicacaos_tipo_aplicacao_links` (`id`, `animal_aplicacao_id
 -- Estrutura para tabela `animal_tratamento_medicos`
 --
 
-CREATE TABLE IF NOT EXISTS `animal_tratamento_medicos` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `animal_tratamento_medicos`;
+CREATE TABLE `animal_tratamento_medicos` (
+  `id` int UNSIGNED NOT NULL,
   `created_at` datetime(6) DEFAULT NULL,
   `updated_at` datetime(6) DEFAULT NULL,
   `published_at` datetime(6) DEFAULT NULL,
   `created_by_id` int UNSIGNED DEFAULT NULL,
-  `updated_by_id` int UNSIGNED DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `animal_tratamento_medicos_created_by_id_fk` (`created_by_id`),
-  KEY `animal_tratamento_medicos_updated_by_id_fk` (`updated_by_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `updated_by_id` int UNSIGNED DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Despejando dados para a tabela `animal_tratamento_medicos`
@@ -1192,17 +1133,13 @@ INSERT INTO `animal_tratamento_medicos` (`id`, `created_at`, `updated_at`, `publ
 -- Estrutura para tabela `animal_tratamento_medicos_animal_links`
 --
 
-CREATE TABLE IF NOT EXISTS `animal_tratamento_medicos_animal_links` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `animal_tratamento_medicos_animal_links`;
+CREATE TABLE `animal_tratamento_medicos_animal_links` (
+  `id` int UNSIGNED NOT NULL,
   `animal_tratamento_medico_id` int UNSIGNED DEFAULT NULL,
   `animal_id` int UNSIGNED DEFAULT NULL,
-  `animal_tratamento_medico_order` double UNSIGNED DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `animal_tratamento_medicos_animal_links_unique` (`animal_tratamento_medico_id`,`animal_id`),
-  KEY `animal_tratamento_medicos_animal_links_fk` (`animal_tratamento_medico_id`),
-  KEY `animal_tratamento_medicos_animal_links_inv_fk` (`animal_id`),
-  KEY `animal_tratamento_medicos_animal_links_order_inv_fk` (`animal_tratamento_medico_order`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `animal_tratamento_medico_order` double UNSIGNED DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -1210,15 +1147,12 @@ CREATE TABLE IF NOT EXISTS `animal_tratamento_medicos_animal_links` (
 -- Estrutura para tabela `animal_tratamento_medicos_tratamento_medico_links`
 --
 
-CREATE TABLE IF NOT EXISTS `animal_tratamento_medicos_tratamento_medico_links` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `animal_tratamento_medicos_tratamento_medico_links`;
+CREATE TABLE `animal_tratamento_medicos_tratamento_medico_links` (
+  `id` int UNSIGNED NOT NULL,
   `animal_tratamento_medico_id` int UNSIGNED DEFAULT NULL,
-  `tratamento_medico_id` int UNSIGNED DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `animal_tratamento_medicos_tratamento_medico_links_unique` (`animal_tratamento_medico_id`,`tratamento_medico_id`),
-  KEY `animal_tratamento_medicos_tratamento_medico_links_fk` (`animal_tratamento_medico_id`),
-  KEY `animal_tratamento_medicos_tratamento_medico_links_inv_fk` (`tratamento_medico_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `tratamento_medico_id` int UNSIGNED DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -1226,8 +1160,9 @@ CREATE TABLE IF NOT EXISTS `animal_tratamento_medicos_tratamento_medico_links` (
 -- Estrutura para tabela `animal_vacinas`
 --
 
-CREATE TABLE IF NOT EXISTS `animal_vacinas` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `animal_vacinas`;
+CREATE TABLE `animal_vacinas` (
+  `id` int UNSIGNED NOT NULL,
   `data_proxima_aplicacao` date DEFAULT NULL,
   `anotacoes` varchar(255) DEFAULT NULL,
   `lembrete_em_dias` int DEFAULT NULL,
@@ -1240,11 +1175,8 @@ CREATE TABLE IF NOT EXISTS `animal_vacinas` (
   `updated_by_id` int UNSIGNED DEFAULT NULL,
   `aplicado` tinyint(1) DEFAULT NULL,
   `doses_totais` int DEFAULT NULL,
-  `intervalo_entre_doses` int DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `animal_vacinas_created_by_id_fk` (`created_by_id`),
-  KEY `animal_vacinas_updated_by_id_fk` (`updated_by_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `intervalo_entre_doses` int DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Despejando dados para a tabela `animal_vacinas`
@@ -1264,15 +1196,12 @@ INSERT INTO `animal_vacinas` (`id`, `data_proxima_aplicacao`, `anotacoes`, `lemb
 -- Estrutura para tabela `animal_vacinas_animal_links`
 --
 
-CREATE TABLE IF NOT EXISTS `animal_vacinas_animal_links` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `animal_vacinas_animal_links`;
+CREATE TABLE `animal_vacinas_animal_links` (
+  `id` int UNSIGNED NOT NULL,
   `animal_vacina_id` int UNSIGNED DEFAULT NULL,
-  `animal_id` int UNSIGNED DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `animal_vacinas_animal_links_unique` (`animal_vacina_id`,`animal_id`),
-  KEY `animal_vacinas_animal_links_fk` (`animal_vacina_id`),
-  KEY `animal_vacinas_animal_links_inv_fk` (`animal_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=77 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `animal_id` int UNSIGNED DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Despejando dados para a tabela `animal_vacinas_animal_links`
@@ -1292,15 +1221,12 @@ INSERT INTO `animal_vacinas_animal_links` (`id`, `animal_vacina_id`, `animal_id`
 -- Estrutura para tabela `animal_vacinas_nome_vacina_links`
 --
 
-CREATE TABLE IF NOT EXISTS `animal_vacinas_nome_vacina_links` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `animal_vacinas_nome_vacina_links`;
+CREATE TABLE `animal_vacinas_nome_vacina_links` (
+  `id` int UNSIGNED NOT NULL,
   `animal_vacina_id` int UNSIGNED DEFAULT NULL,
-  `marca_vacina_id` int UNSIGNED DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `animal_vacinas_nome_vacina_links_unique` (`animal_vacina_id`,`marca_vacina_id`),
-  KEY `animal_vacinas_nome_vacina_links_fk` (`animal_vacina_id`),
-  KEY `animal_vacinas_nome_vacina_links_inv_fk` (`marca_vacina_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `marca_vacina_id` int UNSIGNED DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Despejando dados para a tabela `animal_vacinas_nome_vacina_links`
@@ -1320,17 +1246,15 @@ INSERT INTO `animal_vacinas_nome_vacina_links` (`id`, `animal_vacina_id`, `marca
 -- Estrutura para tabela `categoria_obs_saudes`
 --
 
-CREATE TABLE IF NOT EXISTS `categoria_obs_saudes` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `categoria_obs_saudes`;
+CREATE TABLE `categoria_obs_saudes` (
+  `id` int UNSIGNED NOT NULL,
   `observacao` longtext,
   `created_at` datetime(6) DEFAULT NULL,
   `updated_at` datetime(6) DEFAULT NULL,
   `published_at` datetime(6) DEFAULT NULL,
   `created_by_id` int UNSIGNED DEFAULT NULL,
-  `updated_by_id` int UNSIGNED DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `categoria_obs_saudes_created_by_id_fk` (`created_by_id`),
-  KEY `categoria_obs_saudes_updated_by_id_fk` (`updated_by_id`)
+  `updated_by_id` int UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
@@ -1339,19 +1263,17 @@ CREATE TABLE IF NOT EXISTS `categoria_obs_saudes` (
 -- Estrutura para tabela `condutors`
 --
 
-CREATE TABLE IF NOT EXISTS `condutors` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `condutors`;
+CREATE TABLE `condutors` (
+  `id` int UNSIGNED NOT NULL,
   `nome` longtext,
   `created_at` datetime(6) DEFAULT NULL,
   `updated_at` datetime(6) DEFAULT NULL,
   `created_by_id` int UNSIGNED DEFAULT NULL,
   `updated_by_id` int UNSIGNED DEFAULT NULL,
   `ativo` tinyint(1) DEFAULT NULL,
-  `rg` bigint DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `condutors_created_by_id_fk` (`created_by_id`),
-  KEY `condutors_updated_by_id_fk` (`updated_by_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `rg` bigint DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Despejando dados para a tabela `condutors`
@@ -1373,15 +1295,12 @@ INSERT INTO `condutors` (`id`, `nome`, `created_at`, `updated_at`, `created_by_i
 -- Estrutura para tabela `condutors_unidade_links`
 --
 
-CREATE TABLE IF NOT EXISTS `condutors_unidade_links` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `condutors_unidade_links`;
+CREATE TABLE `condutors_unidade_links` (
+  `id` int UNSIGNED NOT NULL,
   `condutor_id` int UNSIGNED DEFAULT NULL,
-  `unidade_id` int UNSIGNED DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `condutors_unidade_links_unique` (`condutor_id`,`unidade_id`),
-  KEY `condutors_unidade_links_fk` (`condutor_id`),
-  KEY `condutors_unidade_links_inv_fk` (`unidade_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `unidade_id` int UNSIGNED DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Despejando dados para a tabela `condutors_unidade_links`
@@ -1403,8 +1322,9 @@ INSERT INTO `condutors_unidade_links` (`id`, `condutor_id`, `unidade_id`) VALUES
 -- Estrutura para tabela `consultas`
 --
 
-CREATE TABLE IF NOT EXISTS `consultas` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `consultas`;
+CREATE TABLE `consultas` (
+  `id` int UNSIGNED NOT NULL,
   `data_consulta` date DEFAULT NULL,
   `anamnese` longtext,
   `created_at` datetime(6) DEFAULT NULL,
@@ -1415,11 +1335,8 @@ CREATE TABLE IF NOT EXISTS `consultas` (
   `exame_fisico` varchar(255) DEFAULT NULL,
   `diagnostico` varchar(255) DEFAULT NULL,
   `retorno` tinyint(1) DEFAULT NULL,
-  `removido` tinyint(1) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `consultas_created_by_id_fk` (`created_by_id`),
-  KEY `consultas_updated_by_id_fk` (`updated_by_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `removido` tinyint(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Despejando dados para a tabela `consultas`
@@ -1443,15 +1360,12 @@ INSERT INTO `consultas` (`id`, `data_consulta`, `anamnese`, `created_at`, `updat
 -- Estrutura para tabela `consultas_animal_links`
 --
 
-CREATE TABLE IF NOT EXISTS `consultas_animal_links` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `consultas_animal_links`;
+CREATE TABLE `consultas_animal_links` (
+  `id` int UNSIGNED NOT NULL,
   `consulta_id` int UNSIGNED DEFAULT NULL,
-  `animal_id` int UNSIGNED DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `consultas_animal_links_unique` (`consulta_id`,`animal_id`),
-  KEY `consultas_animal_links_fk` (`consulta_id`),
-  KEY `consultas_animal_links_inv_fk` (`animal_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `animal_id` int UNSIGNED DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Despejando dados para a tabela `consultas_animal_links`
@@ -1470,15 +1384,12 @@ INSERT INTO `consultas_animal_links` (`id`, `consulta_id`, `animal_id`) VALUES
 -- Estrutura para tabela `consultas_users_permissions_user_links`
 --
 
-CREATE TABLE IF NOT EXISTS `consultas_users_permissions_user_links` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `consultas_users_permissions_user_links`;
+CREATE TABLE `consultas_users_permissions_user_links` (
+  `id` int UNSIGNED NOT NULL,
   `consulta_id` int UNSIGNED DEFAULT NULL,
-  `user_id` int UNSIGNED DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `consultas_users_permissions_user_links_unique` (`consulta_id`,`user_id`),
-  KEY `consultas_users_permissions_user_links_fk` (`consulta_id`),
-  KEY `consultas_users_permissions_user_links_inv_fk` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `user_id` int UNSIGNED DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Despejando dados para a tabela `consultas_users_permissions_user_links`
@@ -1494,17 +1405,15 @@ INSERT INTO `consultas_users_permissions_user_links` (`id`, `consulta_id`, `user
 -- Estrutura para tabela `cor_animals`
 --
 
-CREATE TABLE IF NOT EXISTS `cor_animals` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `cor_animals`;
+CREATE TABLE `cor_animals` (
+  `id` int UNSIGNED NOT NULL,
   `created_at` datetime(6) DEFAULT NULL,
   `updated_at` datetime(6) DEFAULT NULL,
   `created_by_id` int UNSIGNED DEFAULT NULL,
   `updated_by_id` int UNSIGNED DEFAULT NULL,
-  `nome` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `cor_animals_created_by_id_fk` (`created_by_id`),
-  KEY `cor_animals_updated_by_id_fk` (`updated_by_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `nome` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Despejando dados para a tabela `cor_animals`
@@ -1524,18 +1433,16 @@ INSERT INTO `cor_animals` (`id`, `created_at`, `updated_at`, `created_by_id`, `u
 -- Estrutura para tabela `doencas`
 --
 
-CREATE TABLE IF NOT EXISTS `doencas` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `doencas`;
+CREATE TABLE `doencas` (
+  `id` int UNSIGNED NOT NULL,
   `nome` varchar(255) DEFAULT NULL,
   `created_at` datetime(6) DEFAULT NULL,
   `updated_at` datetime(6) DEFAULT NULL,
   `created_by_id` int UNSIGNED DEFAULT NULL,
   `updated_by_id` int UNSIGNED DEFAULT NULL,
-  `ativo` tinyint(1) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `doencas_created_by_id_fk` (`created_by_id`),
-  KEY `doencas_updated_by_id_fk` (`updated_by_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `ativo` tinyint(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Despejando dados para a tabela `doencas`
@@ -1558,17 +1465,15 @@ INSERT INTO `doencas` (`id`, `nome`, `created_at`, `updated_at`, `created_by_id`
 -- Estrutura para tabela `especializacaos`
 --
 
-CREATE TABLE IF NOT EXISTS `especializacaos` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `especializacaos`;
+CREATE TABLE `especializacaos` (
+  `id` int UNSIGNED NOT NULL,
   `created_at` datetime(6) DEFAULT NULL,
   `updated_at` datetime(6) DEFAULT NULL,
   `created_by_id` int UNSIGNED DEFAULT NULL,
   `updated_by_id` int UNSIGNED DEFAULT NULL,
-  `nome` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `especializacaos_created_by_id_fk` (`created_by_id`),
-  KEY `especializacaos_updated_by_id_fk` (`updated_by_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `nome` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Despejando dados para a tabela `especializacaos`
@@ -1587,17 +1492,15 @@ INSERT INTO `especializacaos` (`id`, `created_at`, `updated_at`, `created_by_id`
 -- Estrutura para tabela `e_alergicos`
 --
 
-CREATE TABLE IF NOT EXISTS `e_alergicos` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `e_alergicos`;
+CREATE TABLE `e_alergicos` (
+  `id` int UNSIGNED NOT NULL,
   `created_at` datetime(6) DEFAULT NULL,
   `updated_at` datetime(6) DEFAULT NULL,
   `published_at` datetime(6) DEFAULT NULL,
   `created_by_id` int UNSIGNED DEFAULT NULL,
-  `updated_by_id` int UNSIGNED DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `e_alergicos_created_by_id_fk` (`created_by_id`),
-  KEY `e_alergicos_updated_by_id_fk` (`updated_by_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `updated_by_id` int UNSIGNED DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -1605,17 +1508,13 @@ CREATE TABLE IF NOT EXISTS `e_alergicos` (
 -- Estrutura para tabela `e_alergicos_animal_links`
 --
 
-CREATE TABLE IF NOT EXISTS `e_alergicos_animal_links` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `e_alergicos_animal_links`;
+CREATE TABLE `e_alergicos_animal_links` (
+  `id` int UNSIGNED NOT NULL,
   `e_alergico_id` int UNSIGNED DEFAULT NULL,
   `animal_id` int UNSIGNED DEFAULT NULL,
-  `e_alergico_order` double UNSIGNED DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `e_alergicos_animal_links_unique` (`e_alergico_id`,`animal_id`),
-  KEY `e_alergicos_animal_links_fk` (`e_alergico_id`),
-  KEY `e_alergicos_animal_links_inv_fk` (`animal_id`),
-  KEY `e_alergicos_animal_links_order_inv_fk` (`e_alergico_order`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `e_alergico_order` double UNSIGNED DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -1623,15 +1522,12 @@ CREATE TABLE IF NOT EXISTS `e_alergicos_animal_links` (
 -- Estrutura para tabela `e_alergicos_medicamento_links`
 --
 
-CREATE TABLE IF NOT EXISTS `e_alergicos_medicamento_links` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `e_alergicos_medicamento_links`;
+CREATE TABLE `e_alergicos_medicamento_links` (
+  `id` int UNSIGNED NOT NULL,
   `e_alergico_id` int UNSIGNED DEFAULT NULL,
-  `medicamento_id` int UNSIGNED DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `e_alergicos_medicamento_links_unique` (`e_alergico_id`,`medicamento_id`),
-  KEY `e_alergicos_medicamento_links_fk` (`e_alergico_id`),
-  KEY `e_alergicos_medicamento_links_inv_fk` (`medicamento_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `medicamento_id` int UNSIGNED DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -1639,17 +1535,15 @@ CREATE TABLE IF NOT EXISTS `e_alergicos_medicamento_links` (
 -- Estrutura para tabela `e_causados`
 --
 
-CREATE TABLE IF NOT EXISTS `e_causados` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `e_causados`;
+CREATE TABLE `e_causados` (
+  `id` int UNSIGNED NOT NULL,
   `created_at` datetime(6) DEFAULT NULL,
   `updated_at` datetime(6) DEFAULT NULL,
   `published_at` datetime(6) DEFAULT NULL,
   `created_by_id` int UNSIGNED DEFAULT NULL,
-  `updated_by_id` int UNSIGNED DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `e_causados_created_by_id_fk` (`created_by_id`),
-  KEY `e_causados_updated_by_id_fk` (`updated_by_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `updated_by_id` int UNSIGNED DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Despejando dados para a tabela `e_causados`
@@ -1666,15 +1560,12 @@ INSERT INTO `e_causados` (`id`, `created_at`, `updated_at`, `published_at`, `cre
 -- Estrutura para tabela `e_causados_doenca_links`
 --
 
-CREATE TABLE IF NOT EXISTS `e_causados_doenca_links` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `e_causados_doenca_links`;
+CREATE TABLE `e_causados_doenca_links` (
+  `id` int UNSIGNED NOT NULL,
   `e_causado_id` int UNSIGNED DEFAULT NULL,
-  `doenca_id` int UNSIGNED DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `e_causados_doenca_links_unique` (`e_causado_id`,`doenca_id`),
-  KEY `e_causados_doenca_links_fk` (`e_causado_id`),
-  KEY `e_causados_doenca_links_inv_fk` (`doenca_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `doenca_id` int UNSIGNED DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Despejando dados para a tabela `e_causados_doenca_links`
@@ -1691,17 +1582,13 @@ INSERT INTO `e_causados_doenca_links` (`id`, `e_causado_id`, `doenca_id`) VALUES
 -- Estrutura para tabela `e_causados_tratamento_medico_links`
 --
 
-CREATE TABLE IF NOT EXISTS `e_causados_tratamento_medico_links` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `e_causados_tratamento_medico_links`;
+CREATE TABLE `e_causados_tratamento_medico_links` (
+  `id` int UNSIGNED NOT NULL,
   `e_causado_id` int UNSIGNED DEFAULT NULL,
   `tratamento_medico_id` int UNSIGNED DEFAULT NULL,
-  `e_causado_order` double UNSIGNED DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `e_causados_tratamento_medico_links_unique` (`e_causado_id`,`tratamento_medico_id`),
-  KEY `e_causados_tratamento_medico_links_fk` (`e_causado_id`),
-  KEY `e_causados_tratamento_medico_links_inv_fk` (`tratamento_medico_id`),
-  KEY `e_causados_tratamento_medico_links_order_inv_fk` (`e_causado_order`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `e_causado_order` double UNSIGNED DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Despejando dados para a tabela `e_causados_tratamento_medico_links`
@@ -1717,8 +1604,9 @@ INSERT INTO `e_causados_tratamento_medico_links` (`id`, `e_causado_id`, `tratame
 -- Estrutura para tabela `files`
 --
 
-CREATE TABLE IF NOT EXISTS `files` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `files`;
+CREATE TABLE `files` (
+  `id` int UNSIGNED NOT NULL,
   `name` varchar(255) DEFAULT NULL,
   `alternative_text` varchar(255) DEFAULT NULL,
   `caption` varchar(255) DEFAULT NULL,
@@ -1737,17 +1625,8 @@ CREATE TABLE IF NOT EXISTS `files` (
   `created_at` datetime(6) DEFAULT NULL,
   `updated_at` datetime(6) DEFAULT NULL,
   `created_by_id` int UNSIGNED DEFAULT NULL,
-  `updated_by_id` int UNSIGNED DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `upload_files_folder_path_index` (`folder_path`),
-  KEY `upload_files_created_at_index` (`created_at`),
-  KEY `upload_files_updated_at_index` (`updated_at`),
-  KEY `upload_files_name_index` (`name`),
-  KEY `upload_files_size_index` (`size`),
-  KEY `upload_files_ext_index` (`ext`),
-  KEY `files_created_by_id_fk` (`created_by_id`),
-  KEY `files_updated_by_id_fk` (`updated_by_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=851 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `updated_by_id` int UNSIGNED DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Despejando dados para a tabela `files`
@@ -1862,17 +1741,13 @@ INSERT INTO `files` (`id`, `name`, `alternative_text`, `caption`, `width`, `heig
 -- Estrutura para tabela `files_folder_links`
 --
 
-CREATE TABLE IF NOT EXISTS `files_folder_links` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `files_folder_links`;
+CREATE TABLE `files_folder_links` (
+  `id` int UNSIGNED NOT NULL,
   `file_id` int UNSIGNED DEFAULT NULL,
   `folder_id` int UNSIGNED DEFAULT NULL,
-  `file_order` double UNSIGNED DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `files_folder_links_unique` (`file_id`,`folder_id`),
-  KEY `files_folder_links_fk` (`file_id`),
-  KEY `files_folder_links_inv_fk` (`folder_id`),
-  KEY `files_folder_links_order_inv_fk` (`file_order`)
-) ENGINE=InnoDB AUTO_INCREMENT=853 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `file_order` double UNSIGNED DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Despejando dados para a tabela `files_folder_links`
@@ -1985,18 +1860,15 @@ INSERT INTO `files_folder_links` (`id`, `file_id`, `folder_id`, `file_order`) VA
 -- Estrutura para tabela `files_related_morphs`
 --
 
-CREATE TABLE IF NOT EXISTS `files_related_morphs` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `files_related_morphs`;
+CREATE TABLE `files_related_morphs` (
+  `id` int UNSIGNED NOT NULL,
   `file_id` int UNSIGNED DEFAULT NULL,
   `related_id` int UNSIGNED DEFAULT NULL,
   `related_type` varchar(255) DEFAULT NULL,
   `field` varchar(255) DEFAULT NULL,
-  `order` double UNSIGNED DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `files_related_morphs_fk` (`file_id`),
-  KEY `files_related_morphs_order_index` (`order`),
-  KEY `files_related_morphs_id_column_index` (`related_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=765 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `order` double UNSIGNED DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Despejando dados para a tabela `files_related_morphs`
@@ -2073,17 +1945,15 @@ INSERT INTO `files_related_morphs` (`id`, `file_id`, `related_id`, `related_type
 -- Estrutura para tabela `forma_aquisicaos`
 --
 
-CREATE TABLE IF NOT EXISTS `forma_aquisicaos` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `forma_aquisicaos`;
+CREATE TABLE `forma_aquisicaos` (
+  `id` int UNSIGNED NOT NULL,
   `created_at` datetime(6) DEFAULT NULL,
   `updated_at` datetime(6) DEFAULT NULL,
   `created_by_id` int UNSIGNED DEFAULT NULL,
   `updated_by_id` int UNSIGNED DEFAULT NULL,
-  `nome` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `forma_aquisicaos_created_by_id_fk` (`created_by_id`),
-  KEY `forma_aquisicaos_updated_by_id_fk` (`updated_by_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `nome` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Despejando dados para a tabela `forma_aquisicaos`
@@ -2102,18 +1972,16 @@ INSERT INTO `forma_aquisicaos` (`id`, `created_at`, `updated_at`, `created_by_id
 -- Estrutura para tabela `i18n_locale`
 --
 
-CREATE TABLE IF NOT EXISTS `i18n_locale` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `i18n_locale`;
+CREATE TABLE `i18n_locale` (
+  `id` int UNSIGNED NOT NULL,
   `name` varchar(255) DEFAULT NULL,
   `code` varchar(255) DEFAULT NULL,
   `created_at` datetime(6) DEFAULT NULL,
   `updated_at` datetime(6) DEFAULT NULL,
   `created_by_id` int UNSIGNED DEFAULT NULL,
-  `updated_by_id` int UNSIGNED DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `i18n_locale_created_by_id_fk` (`created_by_id`),
-  KEY `i18n_locale_updated_by_id_fk` (`updated_by_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `updated_by_id` int UNSIGNED DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Despejando dados para a tabela `i18n_locale`
@@ -2128,17 +1996,15 @@ INSERT INTO `i18n_locale` (`id`, `name`, `code`, `created_at`, `updated_at`, `cr
 -- Estrutura para tabela `justificativa_baixas`
 --
 
-CREATE TABLE IF NOT EXISTS `justificativa_baixas` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `justificativa_baixas`;
+CREATE TABLE `justificativa_baixas` (
+  `id` int UNSIGNED NOT NULL,
   `justificativa` varchar(255) DEFAULT NULL,
   `created_at` datetime(6) DEFAULT NULL,
   `updated_at` datetime(6) DEFAULT NULL,
   `created_by_id` int UNSIGNED DEFAULT NULL,
-  `updated_by_id` int UNSIGNED DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `justificativa_baixas_created_by_id_fk` (`created_by_id`),
-  KEY `justificativa_baixas_updated_by_id_fk` (`updated_by_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `updated_by_id` int UNSIGNED DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Despejando dados para a tabela `justificativa_baixas`
@@ -2165,15 +2031,12 @@ INSERT INTO `justificativa_baixas` (`id`, `justificativa`, `created_at`, `update
 -- Estrutura para tabela `justificativa_baixas_animal_links`
 --
 
-CREATE TABLE IF NOT EXISTS `justificativa_baixas_animal_links` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `justificativa_baixas_animal_links`;
+CREATE TABLE `justificativa_baixas_animal_links` (
+  `id` int UNSIGNED NOT NULL,
   `justificativa_baixa_id` int UNSIGNED DEFAULT NULL,
-  `animal_id` int UNSIGNED DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `justificativa_baixas_animal_links_unique` (`justificativa_baixa_id`,`animal_id`),
-  KEY `justificativa_baixas_animal_links_fk` (`justificativa_baixa_id`),
-  KEY `justificativa_baixas_animal_links_inv_fk` (`animal_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `animal_id` int UNSIGNED DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -2181,19 +2044,17 @@ CREATE TABLE IF NOT EXISTS `justificativa_baixas_animal_links` (
 -- Estrutura para tabela `marca_vacinas`
 --
 
-CREATE TABLE IF NOT EXISTS `marca_vacinas` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `marca_vacinas`;
+CREATE TABLE `marca_vacinas` (
+  `id` int UNSIGNED NOT NULL,
   `nome` varchar(255) DEFAULT NULL,
   `ativo` tinyint(1) DEFAULT NULL,
   `created_at` datetime(6) DEFAULT NULL,
   `updated_at` datetime(6) DEFAULT NULL,
   `published_at` datetime(6) DEFAULT NULL,
   `created_by_id` int UNSIGNED DEFAULT NULL,
-  `updated_by_id` int UNSIGNED DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `marca_vacinas_created_by_id_fk` (`created_by_id`),
-  KEY `marca_vacinas_updated_by_id_fk` (`updated_by_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `updated_by_id` int UNSIGNED DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Despejando dados para a tabela `marca_vacinas`
@@ -2215,15 +2076,12 @@ INSERT INTO `marca_vacinas` (`id`, `nome`, `ativo`, `created_at`, `updated_at`, 
 -- Estrutura para tabela `marca_vacinas_tipo_vacina_links`
 --
 
-CREATE TABLE IF NOT EXISTS `marca_vacinas_tipo_vacina_links` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `marca_vacinas_tipo_vacina_links`;
+CREATE TABLE `marca_vacinas_tipo_vacina_links` (
+  `id` int UNSIGNED NOT NULL,
   `marca_vacina_id` int UNSIGNED DEFAULT NULL,
-  `tipo_vacina_id` int UNSIGNED DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `marca_vacinas_tipo_vacina_links_unique` (`marca_vacina_id`,`tipo_vacina_id`),
-  KEY `marca_vacinas_tipo_vacina_links_fk` (`marca_vacina_id`),
-  KEY `marca_vacinas_tipo_vacina_links_inv_fk` (`tipo_vacina_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `tipo_vacina_id` int UNSIGNED DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Despejando dados para a tabela `marca_vacinas_tipo_vacina_links`
@@ -2245,19 +2103,17 @@ INSERT INTO `marca_vacinas_tipo_vacina_links` (`id`, `marca_vacina_id`, `tipo_va
 -- Estrutura para tabela `medicamentos`
 --
 
-CREATE TABLE IF NOT EXISTS `medicamentos` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `medicamentos`;
+CREATE TABLE `medicamentos` (
+  `id` int UNSIGNED NOT NULL,
   `nome` varchar(255) DEFAULT NULL,
   `created_at` datetime(6) DEFAULT NULL,
   `updated_at` datetime(6) DEFAULT NULL,
   `published_at` datetime(6) DEFAULT NULL,
   `created_by_id` int UNSIGNED DEFAULT NULL,
   `updated_by_id` int UNSIGNED DEFAULT NULL,
-  `ativo` tinyint(1) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `medicamentos_created_by_id_fk` (`created_by_id`),
-  KEY `medicamentos_updated_by_id_fk` (`updated_by_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `ativo` tinyint(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Despejando dados para a tabela `medicamentos`
@@ -2276,8 +2132,9 @@ INSERT INTO `medicamentos` (`id`, `nome`, `created_at`, `updated_at`, `published
 -- Estrutura para tabela `possuis`
 --
 
-CREATE TABLE IF NOT EXISTS `possuis` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `possuis`;
+CREATE TABLE `possuis` (
+  `id` int UNSIGNED NOT NULL,
   `created_at` datetime(6) DEFAULT NULL,
   `updated_at` datetime(6) DEFAULT NULL,
   `published_at` datetime(6) DEFAULT NULL,
@@ -2287,11 +2144,8 @@ CREATE TABLE IF NOT EXISTS `possuis` (
   `data_inicio` date DEFAULT NULL,
   `data_fim` date DEFAULT NULL,
   `medicamento_aplicado` tinyint(1) DEFAULT NULL,
-  `prescricao` longtext,
-  PRIMARY KEY (`id`),
-  KEY `possuis_created_by_id_fk` (`created_by_id`),
-  KEY `possuis_updated_by_id_fk` (`updated_by_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `prescricao` longtext
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Despejando dados para a tabela `possuis`
@@ -2309,15 +2163,12 @@ INSERT INTO `possuis` (`id`, `created_at`, `updated_at`, `published_at`, `create
 -- Estrutura para tabela `possuis_medicamento_links`
 --
 
-CREATE TABLE IF NOT EXISTS `possuis_medicamento_links` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `possuis_medicamento_links`;
+CREATE TABLE `possuis_medicamento_links` (
+  `id` int UNSIGNED NOT NULL,
   `possui_id` int UNSIGNED DEFAULT NULL,
-  `medicamento_id` int UNSIGNED DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `possuis_medicamento_links_unique` (`possui_id`,`medicamento_id`),
-  KEY `possuis_medicamento_links_fk` (`possui_id`),
-  KEY `possuis_medicamento_links_inv_fk` (`medicamento_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `medicamento_id` int UNSIGNED DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Despejando dados para a tabela `possuis_medicamento_links`
@@ -2333,17 +2184,13 @@ INSERT INTO `possuis_medicamento_links` (`id`, `possui_id`, `medicamento_id`) VA
 -- Estrutura para tabela `possuis_tratamento_medico_links`
 --
 
-CREATE TABLE IF NOT EXISTS `possuis_tratamento_medico_links` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `possuis_tratamento_medico_links`;
+CREATE TABLE `possuis_tratamento_medico_links` (
+  `id` int UNSIGNED NOT NULL,
   `possui_id` int UNSIGNED DEFAULT NULL,
   `tratamento_medico_id` int UNSIGNED DEFAULT NULL,
-  `possui_order` double UNSIGNED DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `possuis_tratamento_medico_links_unique` (`possui_id`,`tratamento_medico_id`),
-  KEY `possuis_tratamento_medico_links_fk` (`possui_id`),
-  KEY `possuis_tratamento_medico_links_inv_fk` (`tratamento_medico_id`),
-  KEY `possuis_tratamento_medico_links_order_inv_fk` (`possui_order`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `possui_order` double UNSIGNED DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Despejando dados para a tabela `possuis_tratamento_medico_links`
@@ -2358,18 +2205,16 @@ INSERT INTO `possuis_tratamento_medico_links` (`id`, `possui_id`, `tratamento_me
 -- Estrutura para tabela `racaos`
 --
 
-CREATE TABLE IF NOT EXISTS `racaos` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `racaos`;
+CREATE TABLE `racaos` (
+  `id` int UNSIGNED NOT NULL,
   `quantidade` int DEFAULT NULL,
   `created_at` datetime(6) DEFAULT NULL,
   `updated_at` datetime(6) DEFAULT NULL,
   `created_by_id` int UNSIGNED DEFAULT NULL,
   `updated_by_id` int UNSIGNED DEFAULT NULL,
-  `data_de_registro` date DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `racaos_created_by_id_fk` (`created_by_id`),
-  KEY `racaos_updated_by_id_fk` (`updated_by_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `data_de_registro` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Despejando dados para a tabela `racaos`
@@ -2386,17 +2231,15 @@ INSERT INTO `racaos` (`id`, `quantidade`, `created_at`, `updated_at`, `created_b
 -- Estrutura para tabela `racas`
 --
 
-CREATE TABLE IF NOT EXISTS `racas` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `racas`;
+CREATE TABLE `racas` (
+  `id` int UNSIGNED NOT NULL,
   `created_at` datetime(6) DEFAULT NULL,
   `updated_at` datetime(6) DEFAULT NULL,
   `created_by_id` int UNSIGNED DEFAULT NULL,
   `updated_by_id` int UNSIGNED DEFAULT NULL,
-  `nome` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `racas_created_by_id_fk` (`created_by_id`),
-  KEY `racas_updated_by_id_fk` (`updated_by_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `nome` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Despejando dados para a tabela `racas`
@@ -2413,18 +2256,16 @@ INSERT INTO `racas` (`id`, `created_at`, `updated_at`, `created_by_id`, `updated
 -- Estrutura para tabela `registros`
 --
 
-CREATE TABLE IF NOT EXISTS `registros` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `registros`;
+CREATE TABLE `registros` (
+  `id` int UNSIGNED NOT NULL,
   `dia` date DEFAULT NULL,
   `hora` time(3) DEFAULT NULL,
   `created_at` datetime(6) DEFAULT NULL,
   `updated_at` datetime(6) DEFAULT NULL,
   `published_at` datetime(6) DEFAULT NULL,
   `created_by_id` int UNSIGNED DEFAULT NULL,
-  `updated_by_id` int UNSIGNED DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `registros_created_by_id_fk` (`created_by_id`),
-  KEY `registros_updated_by_id_fk` (`updated_by_id`)
+  `updated_by_id` int UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
@@ -2433,16 +2274,14 @@ CREATE TABLE IF NOT EXISTS `registros` (
 -- Estrutura para tabela `registro_obss`
 --
 
-CREATE TABLE IF NOT EXISTS `registro_obss` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `registro_obss`;
+CREATE TABLE `registro_obss` (
+  `id` int UNSIGNED NOT NULL,
   `created_at` datetime(6) DEFAULT NULL,
   `updated_at` datetime(6) DEFAULT NULL,
   `published_at` datetime(6) DEFAULT NULL,
   `created_by_id` int UNSIGNED DEFAULT NULL,
-  `updated_by_id` int UNSIGNED DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `registro_obss_created_by_id_fk` (`created_by_id`),
-  KEY `registro_obss_updated_by_id_fk` (`updated_by_id`)
+  `updated_by_id` int UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
@@ -2451,16 +2290,12 @@ CREATE TABLE IF NOT EXISTS `registro_obss` (
 -- Estrutura para tabela `registro_obss_animal_links`
 --
 
-CREATE TABLE IF NOT EXISTS `registro_obss_animal_links` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `registro_obss_animal_links`;
+CREATE TABLE `registro_obss_animal_links` (
+  `id` int UNSIGNED NOT NULL,
   `registro_obs_id` int UNSIGNED DEFAULT NULL,
   `animal_id` int UNSIGNED DEFAULT NULL,
-  `registro_obs_order` double UNSIGNED DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `registro_obss_animal_links_unique` (`registro_obs_id`,`animal_id`),
-  KEY `registro_obss_animal_links_fk` (`registro_obs_id`),
-  KEY `registro_obss_animal_links_inv_fk` (`animal_id`),
-  KEY `registro_obss_animal_links_order_inv_fk` (`registro_obs_order`)
+  `registro_obs_order` double UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
@@ -2469,14 +2304,11 @@ CREATE TABLE IF NOT EXISTS `registro_obss_animal_links` (
 -- Estrutura para tabela `registro_obss_categoria_obs_saude_links`
 --
 
-CREATE TABLE IF NOT EXISTS `registro_obss_categoria_obs_saude_links` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `registro_obss_categoria_obs_saude_links`;
+CREATE TABLE `registro_obss_categoria_obs_saude_links` (
+  `id` int UNSIGNED NOT NULL,
   `registro_obs_id` int UNSIGNED DEFAULT NULL,
-  `categoria_obs_saude_id` int UNSIGNED DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `registro_obss_categoria_obs_saude_links_unique` (`registro_obs_id`,`categoria_obs_saude_id`),
-  KEY `registro_obss_categoria_obs_saude_links_fk` (`registro_obs_id`),
-  KEY `registro_obss_categoria_obs_saude_links_inv_fk` (`categoria_obs_saude_id`)
+  `categoria_obs_saude_id` int UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
@@ -2485,15 +2317,13 @@ CREATE TABLE IF NOT EXISTS `registro_obss_categoria_obs_saude_links` (
 -- Estrutura para tabela `registro_tratamentos`
 --
 
-CREATE TABLE IF NOT EXISTS `registro_tratamentos` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `registro_tratamentos`;
+CREATE TABLE `registro_tratamentos` (
+  `id` int UNSIGNED NOT NULL,
   `created_at` datetime(6) DEFAULT NULL,
   `updated_at` datetime(6) DEFAULT NULL,
   `created_by_id` int UNSIGNED DEFAULT NULL,
-  `updated_by_id` int UNSIGNED DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `registro_tratamentos_created_by_id_fk` (`created_by_id`),
-  KEY `registro_tratamentos_updated_by_id_fk` (`updated_by_id`)
+  `updated_by_id` int UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
@@ -2502,14 +2332,11 @@ CREATE TABLE IF NOT EXISTS `registro_tratamentos` (
 -- Estrutura para tabela `registro_tratamentos_registro_links`
 --
 
-CREATE TABLE IF NOT EXISTS `registro_tratamentos_registro_links` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `registro_tratamentos_registro_links`;
+CREATE TABLE `registro_tratamentos_registro_links` (
+  `id` int UNSIGNED NOT NULL,
   `registro_tratamento_id` int UNSIGNED DEFAULT NULL,
-  `registro_id` int UNSIGNED DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `registro_tratamentos_registro_links_unique` (`registro_tratamento_id`,`registro_id`),
-  KEY `registro_tratamentos_registro_links_fk` (`registro_tratamento_id`),
-  KEY `registro_tratamentos_registro_links_inv_fk` (`registro_id`)
+  `registro_id` int UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
@@ -2518,14 +2345,11 @@ CREATE TABLE IF NOT EXISTS `registro_tratamentos_registro_links` (
 -- Estrutura para tabela `registro_tratamentos_tratamento_medico_links`
 --
 
-CREATE TABLE IF NOT EXISTS `registro_tratamentos_tratamento_medico_links` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `registro_tratamentos_tratamento_medico_links`;
+CREATE TABLE `registro_tratamentos_tratamento_medico_links` (
+  `id` int UNSIGNED NOT NULL,
   `registro_tratamento_id` int UNSIGNED DEFAULT NULL,
-  `tratamento_medico_id` int UNSIGNED DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `registro_tratamentos_tratamento_medico_links_unique` (`registro_tratamento_id`,`tratamento_medico_id`),
-  KEY `registro_tratamentos_tratamento_medico_links_fk` (`registro_tratamento_id`),
-  KEY `registro_tratamentos_tratamento_medico_links_inv_fk` (`tratamento_medico_id`)
+  `tratamento_medico_id` int UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
@@ -2534,17 +2358,15 @@ CREATE TABLE IF NOT EXISTS `registro_tratamentos_tratamento_medico_links` (
 -- Estrutura para tabela `sexos`
 --
 
-CREATE TABLE IF NOT EXISTS `sexos` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `sexos`;
+CREATE TABLE `sexos` (
+  `id` int UNSIGNED NOT NULL,
   `created_at` datetime(6) DEFAULT NULL,
   `updated_at` datetime(6) DEFAULT NULL,
   `created_by_id` int UNSIGNED DEFAULT NULL,
   `updated_by_id` int UNSIGNED DEFAULT NULL,
-  `nome` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `sexos_created_by_id_fk` (`created_by_id`),
-  KEY `sexos_updated_by_id_fk` (`updated_by_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `nome` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Despejando dados para a tabela `sexos`
@@ -2560,17 +2382,15 @@ INSERT INTO `sexos` (`id`, `created_at`, `updated_at`, `created_by_id`, `updated
 -- Estrutura para tabela `status_operacionals`
 --
 
-CREATE TABLE IF NOT EXISTS `status_operacionals` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `status_operacionals`;
+CREATE TABLE `status_operacionals` (
+  `id` int UNSIGNED NOT NULL,
   `created_at` datetime(6) DEFAULT NULL,
   `updated_at` datetime(6) DEFAULT NULL,
   `created_by_id` int UNSIGNED DEFAULT NULL,
   `updated_by_id` int UNSIGNED DEFAULT NULL,
-  `nome` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `status_operacionals_created_by_id_fk` (`created_by_id`),
-  KEY `status_operacionals_updated_by_id_fk` (`updated_by_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `nome` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Despejando dados para a tabela `status_operacionals`
@@ -2587,17 +2407,15 @@ INSERT INTO `status_operacionals` (`id`, `created_at`, `updated_at`, `created_by
 -- Estrutura para tabela `status_saudes`
 --
 
-CREATE TABLE IF NOT EXISTS `status_saudes` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `status_saudes`;
+CREATE TABLE `status_saudes` (
+  `id` int UNSIGNED NOT NULL,
   `created_at` datetime(6) DEFAULT NULL,
   `updated_at` datetime(6) DEFAULT NULL,
   `created_by_id` int UNSIGNED DEFAULT NULL,
   `updated_by_id` int UNSIGNED DEFAULT NULL,
-  `nome` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `status_saudes_created_by_id_fk` (`created_by_id`),
-  KEY `status_saudes_updated_by_id_fk` (`updated_by_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `nome` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Despejando dados para a tabela `status_saudes`
@@ -2614,8 +2432,9 @@ INSERT INTO `status_saudes` (`id`, `created_at`, `updated_at`, `created_by_id`, 
 -- Estrutura para tabela `strapi_api_tokens`
 --
 
-CREATE TABLE IF NOT EXISTS `strapi_api_tokens` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `strapi_api_tokens`;
+CREATE TABLE `strapi_api_tokens` (
+  `id` int UNSIGNED NOT NULL,
   `name` varchar(255) DEFAULT NULL,
   `description` varchar(255) DEFAULT NULL,
   `type` varchar(255) DEFAULT NULL,
@@ -2626,10 +2445,7 @@ CREATE TABLE IF NOT EXISTS `strapi_api_tokens` (
   `created_at` datetime(6) DEFAULT NULL,
   `updated_at` datetime(6) DEFAULT NULL,
   `created_by_id` int UNSIGNED DEFAULT NULL,
-  `updated_by_id` int UNSIGNED DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `strapi_api_tokens_created_by_id_fk` (`created_by_id`),
-  KEY `strapi_api_tokens_updated_by_id_fk` (`updated_by_id`)
+  `updated_by_id` int UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
@@ -2638,16 +2454,14 @@ CREATE TABLE IF NOT EXISTS `strapi_api_tokens` (
 -- Estrutura para tabela `strapi_api_token_permissions`
 --
 
-CREATE TABLE IF NOT EXISTS `strapi_api_token_permissions` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `strapi_api_token_permissions`;
+CREATE TABLE `strapi_api_token_permissions` (
+  `id` int UNSIGNED NOT NULL,
   `action` varchar(255) DEFAULT NULL,
   `created_at` datetime(6) DEFAULT NULL,
   `updated_at` datetime(6) DEFAULT NULL,
   `created_by_id` int UNSIGNED DEFAULT NULL,
-  `updated_by_id` int UNSIGNED DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `strapi_api_token_permissions_created_by_id_fk` (`created_by_id`),
-  KEY `strapi_api_token_permissions_updated_by_id_fk` (`updated_by_id`)
+  `updated_by_id` int UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
@@ -2656,16 +2470,12 @@ CREATE TABLE IF NOT EXISTS `strapi_api_token_permissions` (
 -- Estrutura para tabela `strapi_api_token_permissions_token_links`
 --
 
-CREATE TABLE IF NOT EXISTS `strapi_api_token_permissions_token_links` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `strapi_api_token_permissions_token_links`;
+CREATE TABLE `strapi_api_token_permissions_token_links` (
+  `id` int UNSIGNED NOT NULL,
   `api_token_permission_id` int UNSIGNED DEFAULT NULL,
   `api_token_id` int UNSIGNED DEFAULT NULL,
-  `api_token_permission_order` double UNSIGNED DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `strapi_api_token_permissions_token_links_unique` (`api_token_permission_id`,`api_token_id`),
-  KEY `strapi_api_token_permissions_token_links_fk` (`api_token_permission_id`),
-  KEY `strapi_api_token_permissions_token_links_inv_fk` (`api_token_id`),
-  KEY `strapi_api_token_permissions_token_links_order_inv_fk` (`api_token_permission_order`)
+  `api_token_permission_order` double UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
@@ -2674,15 +2484,15 @@ CREATE TABLE IF NOT EXISTS `strapi_api_token_permissions_token_links` (
 -- Estrutura para tabela `strapi_core_store_settings`
 --
 
-CREATE TABLE IF NOT EXISTS `strapi_core_store_settings` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `strapi_core_store_settings`;
+CREATE TABLE `strapi_core_store_settings` (
+  `id` int UNSIGNED NOT NULL,
   `key` varchar(255) DEFAULT NULL,
   `value` longtext,
   `type` varchar(255) DEFAULT NULL,
   `environment` varchar(255) DEFAULT NULL,
-  `tag` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `tag` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Despejando dados para a tabela `strapi_core_store_settings`
@@ -2753,13 +2563,13 @@ INSERT INTO `strapi_core_store_settings` (`id`, `key`, `value`, `type`, `environ
 -- Estrutura para tabela `strapi_database_schema`
 --
 
-CREATE TABLE IF NOT EXISTS `strapi_database_schema` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `strapi_database_schema`;
+CREATE TABLE `strapi_database_schema` (
+  `id` int UNSIGNED NOT NULL,
   `schema` json DEFAULT NULL,
   `time` datetime DEFAULT NULL,
-  `hash` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=163 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `hash` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Despejando dados para a tabela `strapi_database_schema`
@@ -2774,11 +2584,11 @@ INSERT INTO `strapi_database_schema` (`id`, `schema`, `time`, `hash`) VALUES
 -- Estrutura para tabela `strapi_migrations`
 --
 
-CREATE TABLE IF NOT EXISTS `strapi_migrations` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `strapi_migrations`;
+CREATE TABLE `strapi_migrations` (
+  `id` int UNSIGNED NOT NULL,
   `name` varchar(255) DEFAULT NULL,
-  `time` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  `time` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
@@ -2787,8 +2597,9 @@ CREATE TABLE IF NOT EXISTS `strapi_migrations` (
 -- Estrutura para tabela `strapi_transfer_tokens`
 --
 
-CREATE TABLE IF NOT EXISTS `strapi_transfer_tokens` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `strapi_transfer_tokens`;
+CREATE TABLE `strapi_transfer_tokens` (
+  `id` int UNSIGNED NOT NULL,
   `name` varchar(255) DEFAULT NULL,
   `description` varchar(255) DEFAULT NULL,
   `access_key` varchar(255) DEFAULT NULL,
@@ -2798,10 +2609,7 @@ CREATE TABLE IF NOT EXISTS `strapi_transfer_tokens` (
   `created_at` datetime(6) DEFAULT NULL,
   `updated_at` datetime(6) DEFAULT NULL,
   `created_by_id` int UNSIGNED DEFAULT NULL,
-  `updated_by_id` int UNSIGNED DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `strapi_transfer_tokens_created_by_id_fk` (`created_by_id`),
-  KEY `strapi_transfer_tokens_updated_by_id_fk` (`updated_by_id`)
+  `updated_by_id` int UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
@@ -2810,16 +2618,14 @@ CREATE TABLE IF NOT EXISTS `strapi_transfer_tokens` (
 -- Estrutura para tabela `strapi_transfer_token_permissions`
 --
 
-CREATE TABLE IF NOT EXISTS `strapi_transfer_token_permissions` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `strapi_transfer_token_permissions`;
+CREATE TABLE `strapi_transfer_token_permissions` (
+  `id` int UNSIGNED NOT NULL,
   `action` varchar(255) DEFAULT NULL,
   `created_at` datetime(6) DEFAULT NULL,
   `updated_at` datetime(6) DEFAULT NULL,
   `created_by_id` int UNSIGNED DEFAULT NULL,
-  `updated_by_id` int UNSIGNED DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `strapi_transfer_token_permissions_created_by_id_fk` (`created_by_id`),
-  KEY `strapi_transfer_token_permissions_updated_by_id_fk` (`updated_by_id`)
+  `updated_by_id` int UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
@@ -2828,16 +2634,12 @@ CREATE TABLE IF NOT EXISTS `strapi_transfer_token_permissions` (
 -- Estrutura para tabela `strapi_transfer_token_permissions_token_links`
 --
 
-CREATE TABLE IF NOT EXISTS `strapi_transfer_token_permissions_token_links` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `strapi_transfer_token_permissions_token_links`;
+CREATE TABLE `strapi_transfer_token_permissions_token_links` (
+  `id` int UNSIGNED NOT NULL,
   `transfer_token_permission_id` int UNSIGNED DEFAULT NULL,
   `transfer_token_id` int UNSIGNED DEFAULT NULL,
-  `transfer_token_permission_order` double UNSIGNED DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `strapi_transfer_token_permissions_token_links_unique` (`transfer_token_permission_id`,`transfer_token_id`),
-  KEY `strapi_transfer_token_permissions_token_links_fk` (`transfer_token_permission_id`),
-  KEY `strapi_transfer_token_permissions_token_links_inv_fk` (`transfer_token_id`),
-  KEY `strapi_transfer_token_permissions_token_links_order_inv_fk` (`transfer_token_permission_order`)
+  `transfer_token_permission_order` double UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
@@ -2846,14 +2648,14 @@ CREATE TABLE IF NOT EXISTS `strapi_transfer_token_permissions_token_links` (
 -- Estrutura para tabela `strapi_webhooks`
 --
 
-CREATE TABLE IF NOT EXISTS `strapi_webhooks` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `strapi_webhooks`;
+CREATE TABLE `strapi_webhooks` (
+  `id` int UNSIGNED NOT NULL,
   `name` varchar(255) DEFAULT NULL,
   `url` longtext,
   `headers` json DEFAULT NULL,
   `events` json DEFAULT NULL,
-  `enabled` tinyint(1) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  `enabled` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
@@ -2862,19 +2664,17 @@ CREATE TABLE IF NOT EXISTS `strapi_webhooks` (
 -- Estrutura para tabela `tipo_aplicacaos`
 --
 
-CREATE TABLE IF NOT EXISTS `tipo_aplicacaos` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `tipo_aplicacaos`;
+CREATE TABLE `tipo_aplicacaos` (
+  `id` int UNSIGNED NOT NULL,
   `nome_produto` varchar(255) DEFAULT NULL,
   `duracao_em_dias` int DEFAULT NULL,
   `created_at` datetime(6) DEFAULT NULL,
   `updated_at` datetime(6) DEFAULT NULL,
   `created_by_id` int UNSIGNED DEFAULT NULL,
   `updated_by_id` int UNSIGNED DEFAULT NULL,
-  `ativo` tinyint(1) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `tipo_aplicacaos_created_by_id_fk` (`created_by_id`),
-  KEY `tipo_aplicacaos_updated_by_id_fk` (`updated_by_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `ativo` tinyint(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Despejando dados para a tabela `tipo_aplicacaos`
@@ -2899,15 +2699,12 @@ INSERT INTO `tipo_aplicacaos` (`id`, `nome_produto`, `duracao_em_dias`, `created
 -- Estrutura para tabela `tipo_aplicacaos_tipo_produto_antiparasitario_links`
 --
 
-CREATE TABLE IF NOT EXISTS `tipo_aplicacaos_tipo_produto_antiparasitario_links` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `tipo_aplicacaos_tipo_produto_antiparasitario_links`;
+CREATE TABLE `tipo_aplicacaos_tipo_produto_antiparasitario_links` (
+  `id` int UNSIGNED NOT NULL,
   `tipo_aplicacao_id` int UNSIGNED DEFAULT NULL,
-  `tipo_produto_antiparasitario_id` int UNSIGNED DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `tipo_aplicacaos_tipo_produto_antiparasitario_links_unique` (`tipo_aplicacao_id`,`tipo_produto_antiparasitario_id`),
-  KEY `tipo_aplicacaos_tipo_produto_antiparasitario_links_fk` (`tipo_aplicacao_id`),
-  KEY `tipo_aplicacaos_tipo_produto_antiparasitario_links_inv_fk` (`tipo_produto_antiparasitario_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `tipo_produto_antiparasitario_id` int UNSIGNED DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Despejando dados para a tabela `tipo_aplicacaos_tipo_produto_antiparasitario_links`
@@ -2932,18 +2729,16 @@ INSERT INTO `tipo_aplicacaos_tipo_produto_antiparasitario_links` (`id`, `tipo_ap
 -- Estrutura para tabela `tipo_produto_antiparasitarios`
 --
 
-CREATE TABLE IF NOT EXISTS `tipo_produto_antiparasitarios` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `tipo_produto_antiparasitarios`;
+CREATE TABLE `tipo_produto_antiparasitarios` (
+  `id` int UNSIGNED NOT NULL,
   `descricao` varchar(255) DEFAULT NULL,
   `created_at` datetime(6) DEFAULT NULL,
   `updated_at` datetime(6) DEFAULT NULL,
   `published_at` datetime(6) DEFAULT NULL,
   `created_by_id` int UNSIGNED DEFAULT NULL,
-  `updated_by_id` int UNSIGNED DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `tipo_produto_antiparasitarios_created_by_id_fk` (`created_by_id`),
-  KEY `tipo_produto_antiparasitarios_updated_by_id_fk` (`updated_by_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `updated_by_id` int UNSIGNED DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Despejando dados para a tabela `tipo_produto_antiparasitarios`
@@ -2960,18 +2755,16 @@ INSERT INTO `tipo_produto_antiparasitarios` (`id`, `descricao`, `created_at`, `u
 -- Estrutura para tabela `tipo_vacinas`
 --
 
-CREATE TABLE IF NOT EXISTS `tipo_vacinas` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `tipo_vacinas`;
+CREATE TABLE `tipo_vacinas` (
+  `id` int UNSIGNED NOT NULL,
   `created_at` datetime(6) DEFAULT NULL,
   `updated_at` datetime(6) DEFAULT NULL,
   `created_by_id` int UNSIGNED DEFAULT NULL,
   `updated_by_id` int UNSIGNED DEFAULT NULL,
   `ativo` tinyint(1) DEFAULT NULL,
-  `tipo` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `tipo_vacinas_created_by_id_fk` (`created_by_id`),
-  KEY `tipo_vacinas_updated_by_id_fk` (`updated_by_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `tipo` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Despejando dados para a tabela `tipo_vacinas`
@@ -2990,8 +2783,9 @@ INSERT INTO `tipo_vacinas` (`id`, `created_at`, `updated_at`, `created_by_id`, `
 -- Estrutura para tabela `tratamento_medicos`
 --
 
-CREATE TABLE IF NOT EXISTS `tratamento_medicos` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `tratamento_medicos`;
+CREATE TABLE `tratamento_medicos` (
+  `id` int UNSIGNED NOT NULL,
   `data_inicio` date DEFAULT NULL,
   `data_fim` date DEFAULT NULL,
   `tipo_tratamento` varchar(255) DEFAULT NULL,
@@ -3000,11 +2794,8 @@ CREATE TABLE IF NOT EXISTS `tratamento_medicos` (
   `updated_at` datetime(6) DEFAULT NULL,
   `published_at` datetime(6) DEFAULT NULL,
   `created_by_id` int UNSIGNED DEFAULT NULL,
-  `updated_by_id` int UNSIGNED DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `tratamento_medicos_created_by_id_fk` (`created_by_id`),
-  KEY `tratamento_medicos_updated_by_id_fk` (`updated_by_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `updated_by_id` int UNSIGNED DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Despejando dados para a tabela `tratamento_medicos`
@@ -3020,15 +2811,12 @@ INSERT INTO `tratamento_medicos` (`id`, `data_inicio`, `data_fim`, `tipo_tratame
 -- Estrutura para tabela `tratamento_medicos_animal_links`
 --
 
-CREATE TABLE IF NOT EXISTS `tratamento_medicos_animal_links` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `tratamento_medicos_animal_links`;
+CREATE TABLE `tratamento_medicos_animal_links` (
+  `id` int UNSIGNED NOT NULL,
   `tratamento_medico_id` int UNSIGNED DEFAULT NULL,
-  `animal_id` int UNSIGNED DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `tratamento_medicos_animal_links_unique` (`tratamento_medico_id`,`animal_id`),
-  KEY `tratamento_medicos_animal_links_fk` (`tratamento_medico_id`),
-  KEY `tratamento_medicos_animal_links_inv_fk` (`animal_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `animal_id` int UNSIGNED DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -3036,15 +2824,12 @@ CREATE TABLE IF NOT EXISTS `tratamento_medicos_animal_links` (
 -- Estrutura para tabela `tratamento_medicos_consulta_links`
 --
 
-CREATE TABLE IF NOT EXISTS `tratamento_medicos_consulta_links` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `tratamento_medicos_consulta_links`;
+CREATE TABLE `tratamento_medicos_consulta_links` (
+  `id` int UNSIGNED NOT NULL,
   `tratamento_medico_id` int UNSIGNED DEFAULT NULL,
-  `consulta_id` int UNSIGNED DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `tratamento_medicos_consulta_links_unique` (`tratamento_medico_id`,`consulta_id`),
-  KEY `tratamento_medicos_consulta_links_fk` (`tratamento_medico_id`),
-  KEY `tratamento_medicos_consulta_links_inv_fk` (`consulta_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `consulta_id` int UNSIGNED DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Despejando dados para a tabela `tratamento_medicos_consulta_links`
@@ -3060,19 +2845,17 @@ INSERT INTO `tratamento_medicos_consulta_links` (`id`, `tratamento_medico_id`, `
 -- Estrutura para tabela `unidades`
 --
 
-CREATE TABLE IF NOT EXISTS `unidades` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `unidades`;
+CREATE TABLE `unidades` (
+  `id` int UNSIGNED NOT NULL,
   `nome` longtext,
   `endereco` longtext,
   `created_at` datetime(6) DEFAULT NULL,
   `updated_at` datetime(6) DEFAULT NULL,
   `created_by_id` int UNSIGNED DEFAULT NULL,
   `updated_by_id` int UNSIGNED DEFAULT NULL,
-  `ativo` tinyint(1) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `unidades_created_by_id_fk` (`created_by_id`),
-  KEY `unidades_updated_by_id_fk` (`updated_by_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `ativo` tinyint(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Despejando dados para a tabela `unidades`
@@ -3092,21 +2875,17 @@ INSERT INTO `unidades` (`id`, `nome`, `endereco`, `created_at`, `updated_at`, `c
 -- Estrutura para tabela `upload_folders`
 --
 
-CREATE TABLE IF NOT EXISTS `upload_folders` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `upload_folders`;
+CREATE TABLE `upload_folders` (
+  `id` int UNSIGNED NOT NULL,
   `name` varchar(255) DEFAULT NULL,
   `path_id` int DEFAULT NULL,
   `path` varchar(255) DEFAULT NULL,
   `created_at` datetime(6) DEFAULT NULL,
   `updated_at` datetime(6) DEFAULT NULL,
   `created_by_id` int UNSIGNED DEFAULT NULL,
-  `updated_by_id` int UNSIGNED DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `upload_folders_path_id_index` (`path_id`),
-  UNIQUE KEY `upload_folders_path_index` (`path`),
-  KEY `upload_folders_created_by_id_fk` (`created_by_id`),
-  KEY `upload_folders_updated_by_id_fk` (`updated_by_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `updated_by_id` int UNSIGNED DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Despejando dados para a tabela `upload_folders`
@@ -3121,16 +2900,12 @@ INSERT INTO `upload_folders` (`id`, `name`, `path_id`, `path`, `created_at`, `up
 -- Estrutura para tabela `upload_folders_parent_links`
 --
 
-CREATE TABLE IF NOT EXISTS `upload_folders_parent_links` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `upload_folders_parent_links`;
+CREATE TABLE `upload_folders_parent_links` (
+  `id` int UNSIGNED NOT NULL,
   `folder_id` int UNSIGNED DEFAULT NULL,
   `inv_folder_id` int UNSIGNED DEFAULT NULL,
-  `folder_order` double UNSIGNED DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `upload_folders_parent_links_unique` (`folder_id`,`inv_folder_id`),
-  KEY `upload_folders_parent_links_fk` (`folder_id`),
-  KEY `upload_folders_parent_links_inv_fk` (`inv_folder_id`),
-  KEY `upload_folders_parent_links_order_inv_fk` (`folder_order`)
+  `folder_order` double UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
@@ -3139,17 +2914,15 @@ CREATE TABLE IF NOT EXISTS `upload_folders_parent_links` (
 -- Estrutura para tabela `up_permissions`
 --
 
-CREATE TABLE IF NOT EXISTS `up_permissions` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `up_permissions`;
+CREATE TABLE `up_permissions` (
+  `id` int UNSIGNED NOT NULL,
   `action` varchar(255) DEFAULT NULL,
   `created_at` datetime(6) DEFAULT NULL,
   `updated_at` datetime(6) DEFAULT NULL,
   `created_by_id` int UNSIGNED DEFAULT NULL,
-  `updated_by_id` int UNSIGNED DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `up_permissions_created_by_id_fk` (`created_by_id`),
-  KEY `up_permissions_updated_by_id_fk` (`updated_by_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=355 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `updated_by_id` int UNSIGNED DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Despejando dados para a tabela `up_permissions`
@@ -3400,17 +3173,13 @@ INSERT INTO `up_permissions` (`id`, `action`, `created_at`, `updated_at`, `creat
 -- Estrutura para tabela `up_permissions_role_links`
 --
 
-CREATE TABLE IF NOT EXISTS `up_permissions_role_links` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `up_permissions_role_links`;
+CREATE TABLE `up_permissions_role_links` (
+  `id` int UNSIGNED NOT NULL,
   `permission_id` int UNSIGNED DEFAULT NULL,
   `role_id` int UNSIGNED DEFAULT NULL,
-  `permission_order` double UNSIGNED DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `up_permissions_role_links_unique` (`permission_id`,`role_id`),
-  KEY `up_permissions_role_links_fk` (`permission_id`),
-  KEY `up_permissions_role_links_inv_fk` (`role_id`),
-  KEY `up_permissions_role_links_order_inv_fk` (`permission_order`)
-) ENGINE=InnoDB AUTO_INCREMENT=355 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `permission_order` double UNSIGNED DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Despejando dados para a tabela `up_permissions_role_links`
@@ -3661,19 +3430,17 @@ INSERT INTO `up_permissions_role_links` (`id`, `permission_id`, `role_id`, `perm
 -- Estrutura para tabela `up_roles`
 --
 
-CREATE TABLE IF NOT EXISTS `up_roles` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `up_roles`;
+CREATE TABLE `up_roles` (
+  `id` int UNSIGNED NOT NULL,
   `name` varchar(255) DEFAULT NULL,
   `description` varchar(255) DEFAULT NULL,
   `type` varchar(255) DEFAULT NULL,
   `created_at` datetime(6) DEFAULT NULL,
   `updated_at` datetime(6) DEFAULT NULL,
   `created_by_id` int UNSIGNED DEFAULT NULL,
-  `updated_by_id` int UNSIGNED DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `up_roles_created_by_id_fk` (`created_by_id`),
-  KEY `up_roles_updated_by_id_fk` (`updated_by_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `updated_by_id` int UNSIGNED DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Despejando dados para a tabela `up_roles`
@@ -3691,8 +3458,9 @@ INSERT INTO `up_roles` (`id`, `name`, `description`, `type`, `created_at`, `upda
 -- Estrutura para tabela `up_users`
 --
 
-CREATE TABLE IF NOT EXISTS `up_users` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `up_users`;
+CREATE TABLE `up_users` (
+  `id` int UNSIGNED NOT NULL,
   `username` varchar(255) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
   `provider` varchar(255) DEFAULT NULL,
@@ -3705,11 +3473,8 @@ CREATE TABLE IF NOT EXISTS `up_users` (
   `updated_at` datetime(6) DEFAULT NULL,
   `created_by_id` int UNSIGNED DEFAULT NULL,
   `updated_by_id` int UNSIGNED DEFAULT NULL,
-  `cpf` bigint DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `up_users_created_by_id_fk` (`created_by_id`),
-  KEY `up_users_updated_by_id_fk` (`updated_by_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `cpf` bigint DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Despejando dados para a tabela `up_users`
@@ -3730,17 +3495,13 @@ INSERT INTO `up_users` (`id`, `username`, `email`, `provider`, `password`, `rese
 -- Estrutura para tabela `up_users_role_links`
 --
 
-CREATE TABLE IF NOT EXISTS `up_users_role_links` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `up_users_role_links`;
+CREATE TABLE `up_users_role_links` (
+  `id` int UNSIGNED NOT NULL,
   `user_id` int UNSIGNED DEFAULT NULL,
   `role_id` int UNSIGNED DEFAULT NULL,
-  `user_order` double UNSIGNED DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `up_users_role_links_unique` (`user_id`,`role_id`),
-  KEY `up_users_role_links_fk` (`user_id`),
-  KEY `up_users_role_links_inv_fk` (`role_id`),
-  KEY `up_users_role_links_order_inv_fk` (`user_order`)
-) ENGINE=InnoDB AUTO_INCREMENT=91 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `user_order` double UNSIGNED DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Despejando dados para a tabela `up_users_role_links`
@@ -3754,6 +3515,1331 @@ INSERT INTO `up_users_role_links` (`id`, `user_id`, `role_id`, `user_order`) VAL
 (67, 24, 3, 2),
 (84, 31, 3, 5),
 (90, 34, 3, 6);
+
+--
+-- Índices para tabelas despejadas
+--
+
+--
+-- Índices de tabela `admin_permissions`
+--
+ALTER TABLE `admin_permissions`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `admin_permissions_created_by_id_fk` (`created_by_id`),
+  ADD KEY `admin_permissions_updated_by_id_fk` (`updated_by_id`);
+
+--
+-- Índices de tabela `admin_permissions_role_links`
+--
+ALTER TABLE `admin_permissions_role_links`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `admin_permissions_role_links_unique` (`permission_id`,`role_id`),
+  ADD KEY `admin_permissions_role_links_fk` (`permission_id`),
+  ADD KEY `admin_permissions_role_links_inv_fk` (`role_id`),
+  ADD KEY `admin_permissions_role_links_order_inv_fk` (`permission_order`);
+
+--
+-- Índices de tabela `admin_roles`
+--
+ALTER TABLE `admin_roles`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `admin_roles_created_by_id_fk` (`created_by_id`),
+  ADD KEY `admin_roles_updated_by_id_fk` (`updated_by_id`);
+
+--
+-- Índices de tabela `admin_users`
+--
+ALTER TABLE `admin_users`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `admin_users_created_by_id_fk` (`created_by_id`),
+  ADD KEY `admin_users_updated_by_id_fk` (`updated_by_id`);
+
+--
+-- Índices de tabela `admin_users_roles_links`
+--
+ALTER TABLE `admin_users_roles_links`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `admin_users_roles_links_unique` (`user_id`,`role_id`),
+  ADD KEY `admin_users_roles_links_fk` (`user_id`),
+  ADD KEY `admin_users_roles_links_inv_fk` (`role_id`),
+  ADD KEY `admin_users_roles_links_order_fk` (`role_order`),
+  ADD KEY `admin_users_roles_links_order_inv_fk` (`user_order`);
+
+--
+-- Índices de tabela `animals`
+--
+ALTER TABLE `animals`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `animals_created_by_id_fk` (`created_by_id`),
+  ADD KEY `animals_updated_by_id_fk` (`updated_by_id`);
+
+--
+-- Índices de tabela `animals_alocacao_links`
+--
+ALTER TABLE `animals_alocacao_links`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `animals_alocacao_links_unique` (`animal_id`,`unidade_id`),
+  ADD KEY `animals_alocacao_links_fk` (`animal_id`),
+  ADD KEY `animals_alocacao_links_inv_fk` (`unidade_id`);
+
+--
+-- Índices de tabela `animals_condutor_principal_links`
+--
+ALTER TABLE `animals_condutor_principal_links`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `animals_condutor_principal_links_unique` (`animal_id`,`condutor_id`),
+  ADD KEY `animals_condutor_principal_links_fk` (`animal_id`),
+  ADD KEY `animals_condutor_principal_links_inv_fk` (`condutor_id`);
+
+--
+-- Índices de tabela `animals_condutor_secundario_links`
+--
+ALTER TABLE `animals_condutor_secundario_links`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `animals_condutor_secundario_links_unique` (`animal_id`,`condutor_id`),
+  ADD KEY `animals_condutor_secundario_links_fk` (`animal_id`),
+  ADD KEY `animals_condutor_secundario_links_inv_fk` (`condutor_id`);
+
+--
+-- Índices de tabela `animals_cor_animal_links`
+--
+ALTER TABLE `animals_cor_animal_links`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `animals_cor_animal_links_unique` (`animal_id`,`cor_animal_id`),
+  ADD KEY `animals_cor_animal_links_fk` (`animal_id`),
+  ADD KEY `animals_cor_animal_links_inv_fk` (`cor_animal_id`);
+
+--
+-- Índices de tabela `animals_especializacao_links`
+--
+ALTER TABLE `animals_especializacao_links`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `animals_especializacao_links_unique` (`animal_id`,`especializacao_id`),
+  ADD KEY `animals_especializacao_links_fk` (`animal_id`),
+  ADD KEY `animals_especializacao_links_inv_fk` (`especializacao_id`);
+
+--
+-- Índices de tabela `animals_forma_aquisicao_links`
+--
+ALTER TABLE `animals_forma_aquisicao_links`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `animals_forma_aquisicao_links_unique` (`animal_id`,`forma_aquisicao_id`),
+  ADD KEY `animals_forma_aquisicao_links_fk` (`animal_id`),
+  ADD KEY `animals_forma_aquisicao_links_inv_fk` (`forma_aquisicao_id`);
+
+--
+-- Índices de tabela `animals_raca_links`
+--
+ALTER TABLE `animals_raca_links`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `animals_raca_links_unique` (`animal_id`,`raca_id`),
+  ADD KEY `animals_raca_links_fk` (`animal_id`),
+  ADD KEY `animals_raca_links_inv_fk` (`raca_id`);
+
+--
+-- Índices de tabela `animals_sexo_links`
+--
+ALTER TABLE `animals_sexo_links`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `animals_sexo_links_unique` (`animal_id`,`sexo_id`),
+  ADD KEY `animals_sexo_links_fk` (`animal_id`),
+  ADD KEY `animals_sexo_links_inv_fk` (`sexo_id`);
+
+--
+-- Índices de tabela `animals_status_operacional_links`
+--
+ALTER TABLE `animals_status_operacional_links`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `animals_status_operacional_links_unique` (`animal_id`,`status_operacional_id`),
+  ADD KEY `animals_status_operacional_links_fk` (`animal_id`),
+  ADD KEY `animals_status_operacional_links_inv_fk` (`status_operacional_id`);
+
+--
+-- Índices de tabela `animals_status_saude_links`
+--
+ALTER TABLE `animals_status_saude_links`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `animals_status_saude_links_unique` (`animal_id`,`status_saude_id`),
+  ADD KEY `animals_status_saude_links_fk` (`animal_id`),
+  ADD KEY `animals_status_saude_links_inv_fk` (`status_saude_id`);
+
+--
+-- Índices de tabela `animal_aplicacaos`
+--
+ALTER TABLE `animal_aplicacaos`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `animal_aplicacaos_created_by_id_fk` (`created_by_id`),
+  ADD KEY `animal_aplicacaos_updated_by_id_fk` (`updated_by_id`);
+
+--
+-- Índices de tabela `animal_aplicacaos_animal_links`
+--
+ALTER TABLE `animal_aplicacaos_animal_links`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `animal_aplicacaos_animal_links_unique` (`animal_aplicacao_id`,`animal_id`),
+  ADD KEY `animal_aplicacaos_animal_links_fk` (`animal_aplicacao_id`),
+  ADD KEY `animal_aplicacaos_animal_links_inv_fk` (`animal_id`);
+
+--
+-- Índices de tabela `animal_aplicacaos_tipo_aplicacao_links`
+--
+ALTER TABLE `animal_aplicacaos_tipo_aplicacao_links`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `animal_aplicacaos_tipo_aplicacao_links_unique` (`animal_aplicacao_id`,`tipo_aplicacao_id`),
+  ADD KEY `animal_aplicacaos_tipo_aplicacao_links_fk` (`animal_aplicacao_id`),
+  ADD KEY `animal_aplicacaos_tipo_aplicacao_links_inv_fk` (`tipo_aplicacao_id`);
+
+--
+-- Índices de tabela `animal_tratamento_medicos`
+--
+ALTER TABLE `animal_tratamento_medicos`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `animal_tratamento_medicos_created_by_id_fk` (`created_by_id`),
+  ADD KEY `animal_tratamento_medicos_updated_by_id_fk` (`updated_by_id`);
+
+--
+-- Índices de tabela `animal_tratamento_medicos_animal_links`
+--
+ALTER TABLE `animal_tratamento_medicos_animal_links`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `animal_tratamento_medicos_animal_links_unique` (`animal_tratamento_medico_id`,`animal_id`),
+  ADD KEY `animal_tratamento_medicos_animal_links_fk` (`animal_tratamento_medico_id`),
+  ADD KEY `animal_tratamento_medicos_animal_links_inv_fk` (`animal_id`),
+  ADD KEY `animal_tratamento_medicos_animal_links_order_inv_fk` (`animal_tratamento_medico_order`);
+
+--
+-- Índices de tabela `animal_tratamento_medicos_tratamento_medico_links`
+--
+ALTER TABLE `animal_tratamento_medicos_tratamento_medico_links`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `animal_tratamento_medicos_tratamento_medico_links_unique` (`animal_tratamento_medico_id`,`tratamento_medico_id`),
+  ADD KEY `animal_tratamento_medicos_tratamento_medico_links_fk` (`animal_tratamento_medico_id`),
+  ADD KEY `animal_tratamento_medicos_tratamento_medico_links_inv_fk` (`tratamento_medico_id`);
+
+--
+-- Índices de tabela `animal_vacinas`
+--
+ALTER TABLE `animal_vacinas`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `animal_vacinas_created_by_id_fk` (`created_by_id`),
+  ADD KEY `animal_vacinas_updated_by_id_fk` (`updated_by_id`);
+
+--
+-- Índices de tabela `animal_vacinas_animal_links`
+--
+ALTER TABLE `animal_vacinas_animal_links`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `animal_vacinas_animal_links_unique` (`animal_vacina_id`,`animal_id`),
+  ADD KEY `animal_vacinas_animal_links_fk` (`animal_vacina_id`),
+  ADD KEY `animal_vacinas_animal_links_inv_fk` (`animal_id`);
+
+--
+-- Índices de tabela `animal_vacinas_nome_vacina_links`
+--
+ALTER TABLE `animal_vacinas_nome_vacina_links`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `animal_vacinas_nome_vacina_links_unique` (`animal_vacina_id`,`marca_vacina_id`),
+  ADD KEY `animal_vacinas_nome_vacina_links_fk` (`animal_vacina_id`),
+  ADD KEY `animal_vacinas_nome_vacina_links_inv_fk` (`marca_vacina_id`);
+
+--
+-- Índices de tabela `categoria_obs_saudes`
+--
+ALTER TABLE `categoria_obs_saudes`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `categoria_obs_saudes_created_by_id_fk` (`created_by_id`),
+  ADD KEY `categoria_obs_saudes_updated_by_id_fk` (`updated_by_id`);
+
+--
+-- Índices de tabela `condutors`
+--
+ALTER TABLE `condutors`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `condutors_created_by_id_fk` (`created_by_id`),
+  ADD KEY `condutors_updated_by_id_fk` (`updated_by_id`);
+
+--
+-- Índices de tabela `condutors_unidade_links`
+--
+ALTER TABLE `condutors_unidade_links`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `condutors_unidade_links_unique` (`condutor_id`,`unidade_id`),
+  ADD KEY `condutors_unidade_links_fk` (`condutor_id`),
+  ADD KEY `condutors_unidade_links_inv_fk` (`unidade_id`);
+
+--
+-- Índices de tabela `consultas`
+--
+ALTER TABLE `consultas`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `consultas_created_by_id_fk` (`created_by_id`),
+  ADD KEY `consultas_updated_by_id_fk` (`updated_by_id`);
+
+--
+-- Índices de tabela `consultas_animal_links`
+--
+ALTER TABLE `consultas_animal_links`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `consultas_animal_links_unique` (`consulta_id`,`animal_id`),
+  ADD KEY `consultas_animal_links_fk` (`consulta_id`),
+  ADD KEY `consultas_animal_links_inv_fk` (`animal_id`);
+
+--
+-- Índices de tabela `consultas_users_permissions_user_links`
+--
+ALTER TABLE `consultas_users_permissions_user_links`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `consultas_users_permissions_user_links_unique` (`consulta_id`,`user_id`),
+  ADD KEY `consultas_users_permissions_user_links_fk` (`consulta_id`),
+  ADD KEY `consultas_users_permissions_user_links_inv_fk` (`user_id`);
+
+--
+-- Índices de tabela `cor_animals`
+--
+ALTER TABLE `cor_animals`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `cor_animals_created_by_id_fk` (`created_by_id`),
+  ADD KEY `cor_animals_updated_by_id_fk` (`updated_by_id`);
+
+--
+-- Índices de tabela `doencas`
+--
+ALTER TABLE `doencas`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `doencas_created_by_id_fk` (`created_by_id`),
+  ADD KEY `doencas_updated_by_id_fk` (`updated_by_id`);
+
+--
+-- Índices de tabela `especializacaos`
+--
+ALTER TABLE `especializacaos`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `especializacaos_created_by_id_fk` (`created_by_id`),
+  ADD KEY `especializacaos_updated_by_id_fk` (`updated_by_id`);
+
+--
+-- Índices de tabela `e_alergicos`
+--
+ALTER TABLE `e_alergicos`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `e_alergicos_created_by_id_fk` (`created_by_id`),
+  ADD KEY `e_alergicos_updated_by_id_fk` (`updated_by_id`);
+
+--
+-- Índices de tabela `e_alergicos_animal_links`
+--
+ALTER TABLE `e_alergicos_animal_links`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `e_alergicos_animal_links_unique` (`e_alergico_id`,`animal_id`),
+  ADD KEY `e_alergicos_animal_links_fk` (`e_alergico_id`),
+  ADD KEY `e_alergicos_animal_links_inv_fk` (`animal_id`),
+  ADD KEY `e_alergicos_animal_links_order_inv_fk` (`e_alergico_order`);
+
+--
+-- Índices de tabela `e_alergicos_medicamento_links`
+--
+ALTER TABLE `e_alergicos_medicamento_links`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `e_alergicos_medicamento_links_unique` (`e_alergico_id`,`medicamento_id`),
+  ADD KEY `e_alergicos_medicamento_links_fk` (`e_alergico_id`),
+  ADD KEY `e_alergicos_medicamento_links_inv_fk` (`medicamento_id`);
+
+--
+-- Índices de tabela `e_causados`
+--
+ALTER TABLE `e_causados`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `e_causados_created_by_id_fk` (`created_by_id`),
+  ADD KEY `e_causados_updated_by_id_fk` (`updated_by_id`);
+
+--
+-- Índices de tabela `e_causados_doenca_links`
+--
+ALTER TABLE `e_causados_doenca_links`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `e_causados_doenca_links_unique` (`e_causado_id`,`doenca_id`),
+  ADD KEY `e_causados_doenca_links_fk` (`e_causado_id`),
+  ADD KEY `e_causados_doenca_links_inv_fk` (`doenca_id`);
+
+--
+-- Índices de tabela `e_causados_tratamento_medico_links`
+--
+ALTER TABLE `e_causados_tratamento_medico_links`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `e_causados_tratamento_medico_links_unique` (`e_causado_id`,`tratamento_medico_id`),
+  ADD KEY `e_causados_tratamento_medico_links_fk` (`e_causado_id`),
+  ADD KEY `e_causados_tratamento_medico_links_inv_fk` (`tratamento_medico_id`),
+  ADD KEY `e_causados_tratamento_medico_links_order_inv_fk` (`e_causado_order`);
+
+--
+-- Índices de tabela `files`
+--
+ALTER TABLE `files`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `upload_files_folder_path_index` (`folder_path`),
+  ADD KEY `upload_files_created_at_index` (`created_at`),
+  ADD KEY `upload_files_updated_at_index` (`updated_at`),
+  ADD KEY `upload_files_name_index` (`name`),
+  ADD KEY `upload_files_size_index` (`size`),
+  ADD KEY `upload_files_ext_index` (`ext`),
+  ADD KEY `files_created_by_id_fk` (`created_by_id`),
+  ADD KEY `files_updated_by_id_fk` (`updated_by_id`);
+
+--
+-- Índices de tabela `files_folder_links`
+--
+ALTER TABLE `files_folder_links`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `files_folder_links_unique` (`file_id`,`folder_id`),
+  ADD KEY `files_folder_links_fk` (`file_id`),
+  ADD KEY `files_folder_links_inv_fk` (`folder_id`),
+  ADD KEY `files_folder_links_order_inv_fk` (`file_order`);
+
+--
+-- Índices de tabela `files_related_morphs`
+--
+ALTER TABLE `files_related_morphs`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `files_related_morphs_fk` (`file_id`),
+  ADD KEY `files_related_morphs_order_index` (`order`),
+  ADD KEY `files_related_morphs_id_column_index` (`related_id`);
+
+--
+-- Índices de tabela `forma_aquisicaos`
+--
+ALTER TABLE `forma_aquisicaos`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `forma_aquisicaos_created_by_id_fk` (`created_by_id`),
+  ADD KEY `forma_aquisicaos_updated_by_id_fk` (`updated_by_id`);
+
+--
+-- Índices de tabela `i18n_locale`
+--
+ALTER TABLE `i18n_locale`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `i18n_locale_created_by_id_fk` (`created_by_id`),
+  ADD KEY `i18n_locale_updated_by_id_fk` (`updated_by_id`);
+
+--
+-- Índices de tabela `justificativa_baixas`
+--
+ALTER TABLE `justificativa_baixas`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `justificativa_baixas_created_by_id_fk` (`created_by_id`),
+  ADD KEY `justificativa_baixas_updated_by_id_fk` (`updated_by_id`);
+
+--
+-- Índices de tabela `justificativa_baixas_animal_links`
+--
+ALTER TABLE `justificativa_baixas_animal_links`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `justificativa_baixas_animal_links_unique` (`justificativa_baixa_id`,`animal_id`),
+  ADD KEY `justificativa_baixas_animal_links_fk` (`justificativa_baixa_id`),
+  ADD KEY `justificativa_baixas_animal_links_inv_fk` (`animal_id`);
+
+--
+-- Índices de tabela `marca_vacinas`
+--
+ALTER TABLE `marca_vacinas`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `marca_vacinas_created_by_id_fk` (`created_by_id`),
+  ADD KEY `marca_vacinas_updated_by_id_fk` (`updated_by_id`);
+
+--
+-- Índices de tabela `marca_vacinas_tipo_vacina_links`
+--
+ALTER TABLE `marca_vacinas_tipo_vacina_links`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `marca_vacinas_tipo_vacina_links_unique` (`marca_vacina_id`,`tipo_vacina_id`),
+  ADD KEY `marca_vacinas_tipo_vacina_links_fk` (`marca_vacina_id`),
+  ADD KEY `marca_vacinas_tipo_vacina_links_inv_fk` (`tipo_vacina_id`);
+
+--
+-- Índices de tabela `medicamentos`
+--
+ALTER TABLE `medicamentos`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `medicamentos_created_by_id_fk` (`created_by_id`),
+  ADD KEY `medicamentos_updated_by_id_fk` (`updated_by_id`);
+
+--
+-- Índices de tabela `possuis`
+--
+ALTER TABLE `possuis`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `possuis_created_by_id_fk` (`created_by_id`),
+  ADD KEY `possuis_updated_by_id_fk` (`updated_by_id`);
+
+--
+-- Índices de tabela `possuis_medicamento_links`
+--
+ALTER TABLE `possuis_medicamento_links`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `possuis_medicamento_links_unique` (`possui_id`,`medicamento_id`),
+  ADD KEY `possuis_medicamento_links_fk` (`possui_id`),
+  ADD KEY `possuis_medicamento_links_inv_fk` (`medicamento_id`);
+
+--
+-- Índices de tabela `possuis_tratamento_medico_links`
+--
+ALTER TABLE `possuis_tratamento_medico_links`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `possuis_tratamento_medico_links_unique` (`possui_id`,`tratamento_medico_id`),
+  ADD KEY `possuis_tratamento_medico_links_fk` (`possui_id`),
+  ADD KEY `possuis_tratamento_medico_links_inv_fk` (`tratamento_medico_id`),
+  ADD KEY `possuis_tratamento_medico_links_order_inv_fk` (`possui_order`);
+
+--
+-- Índices de tabela `racaos`
+--
+ALTER TABLE `racaos`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `racaos_created_by_id_fk` (`created_by_id`),
+  ADD KEY `racaos_updated_by_id_fk` (`updated_by_id`);
+
+--
+-- Índices de tabela `racas`
+--
+ALTER TABLE `racas`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `racas_created_by_id_fk` (`created_by_id`),
+  ADD KEY `racas_updated_by_id_fk` (`updated_by_id`);
+
+--
+-- Índices de tabela `registros`
+--
+ALTER TABLE `registros`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `registros_created_by_id_fk` (`created_by_id`),
+  ADD KEY `registros_updated_by_id_fk` (`updated_by_id`);
+
+--
+-- Índices de tabela `registro_obss`
+--
+ALTER TABLE `registro_obss`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `registro_obss_created_by_id_fk` (`created_by_id`),
+  ADD KEY `registro_obss_updated_by_id_fk` (`updated_by_id`);
+
+--
+-- Índices de tabela `registro_obss_animal_links`
+--
+ALTER TABLE `registro_obss_animal_links`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `registro_obss_animal_links_unique` (`registro_obs_id`,`animal_id`),
+  ADD KEY `registro_obss_animal_links_fk` (`registro_obs_id`),
+  ADD KEY `registro_obss_animal_links_inv_fk` (`animal_id`),
+  ADD KEY `registro_obss_animal_links_order_inv_fk` (`registro_obs_order`);
+
+--
+-- Índices de tabela `registro_obss_categoria_obs_saude_links`
+--
+ALTER TABLE `registro_obss_categoria_obs_saude_links`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `registro_obss_categoria_obs_saude_links_unique` (`registro_obs_id`,`categoria_obs_saude_id`),
+  ADD KEY `registro_obss_categoria_obs_saude_links_fk` (`registro_obs_id`),
+  ADD KEY `registro_obss_categoria_obs_saude_links_inv_fk` (`categoria_obs_saude_id`);
+
+--
+-- Índices de tabela `registro_tratamentos`
+--
+ALTER TABLE `registro_tratamentos`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `registro_tratamentos_created_by_id_fk` (`created_by_id`),
+  ADD KEY `registro_tratamentos_updated_by_id_fk` (`updated_by_id`);
+
+--
+-- Índices de tabela `registro_tratamentos_registro_links`
+--
+ALTER TABLE `registro_tratamentos_registro_links`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `registro_tratamentos_registro_links_unique` (`registro_tratamento_id`,`registro_id`),
+  ADD KEY `registro_tratamentos_registro_links_fk` (`registro_tratamento_id`),
+  ADD KEY `registro_tratamentos_registro_links_inv_fk` (`registro_id`);
+
+--
+-- Índices de tabela `registro_tratamentos_tratamento_medico_links`
+--
+ALTER TABLE `registro_tratamentos_tratamento_medico_links`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `registro_tratamentos_tratamento_medico_links_unique` (`registro_tratamento_id`,`tratamento_medico_id`),
+  ADD KEY `registro_tratamentos_tratamento_medico_links_fk` (`registro_tratamento_id`),
+  ADD KEY `registro_tratamentos_tratamento_medico_links_inv_fk` (`tratamento_medico_id`);
+
+--
+-- Índices de tabela `sexos`
+--
+ALTER TABLE `sexos`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `sexos_created_by_id_fk` (`created_by_id`),
+  ADD KEY `sexos_updated_by_id_fk` (`updated_by_id`);
+
+--
+-- Índices de tabela `status_operacionals`
+--
+ALTER TABLE `status_operacionals`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `status_operacionals_created_by_id_fk` (`created_by_id`),
+  ADD KEY `status_operacionals_updated_by_id_fk` (`updated_by_id`);
+
+--
+-- Índices de tabela `status_saudes`
+--
+ALTER TABLE `status_saudes`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `status_saudes_created_by_id_fk` (`created_by_id`),
+  ADD KEY `status_saudes_updated_by_id_fk` (`updated_by_id`);
+
+--
+-- Índices de tabela `strapi_api_tokens`
+--
+ALTER TABLE `strapi_api_tokens`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `strapi_api_tokens_created_by_id_fk` (`created_by_id`),
+  ADD KEY `strapi_api_tokens_updated_by_id_fk` (`updated_by_id`);
+
+--
+-- Índices de tabela `strapi_api_token_permissions`
+--
+ALTER TABLE `strapi_api_token_permissions`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `strapi_api_token_permissions_created_by_id_fk` (`created_by_id`),
+  ADD KEY `strapi_api_token_permissions_updated_by_id_fk` (`updated_by_id`);
+
+--
+-- Índices de tabela `strapi_api_token_permissions_token_links`
+--
+ALTER TABLE `strapi_api_token_permissions_token_links`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `strapi_api_token_permissions_token_links_unique` (`api_token_permission_id`,`api_token_id`),
+  ADD KEY `strapi_api_token_permissions_token_links_fk` (`api_token_permission_id`),
+  ADD KEY `strapi_api_token_permissions_token_links_inv_fk` (`api_token_id`),
+  ADD KEY `strapi_api_token_permissions_token_links_order_inv_fk` (`api_token_permission_order`);
+
+--
+-- Índices de tabela `strapi_core_store_settings`
+--
+ALTER TABLE `strapi_core_store_settings`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Índices de tabela `strapi_database_schema`
+--
+ALTER TABLE `strapi_database_schema`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Índices de tabela `strapi_migrations`
+--
+ALTER TABLE `strapi_migrations`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Índices de tabela `strapi_transfer_tokens`
+--
+ALTER TABLE `strapi_transfer_tokens`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `strapi_transfer_tokens_created_by_id_fk` (`created_by_id`),
+  ADD KEY `strapi_transfer_tokens_updated_by_id_fk` (`updated_by_id`);
+
+--
+-- Índices de tabela `strapi_transfer_token_permissions`
+--
+ALTER TABLE `strapi_transfer_token_permissions`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `strapi_transfer_token_permissions_created_by_id_fk` (`created_by_id`),
+  ADD KEY `strapi_transfer_token_permissions_updated_by_id_fk` (`updated_by_id`);
+
+--
+-- Índices de tabela `strapi_transfer_token_permissions_token_links`
+--
+ALTER TABLE `strapi_transfer_token_permissions_token_links`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `strapi_transfer_token_permissions_token_links_unique` (`transfer_token_permission_id`,`transfer_token_id`),
+  ADD KEY `strapi_transfer_token_permissions_token_links_fk` (`transfer_token_permission_id`),
+  ADD KEY `strapi_transfer_token_permissions_token_links_inv_fk` (`transfer_token_id`),
+  ADD KEY `strapi_transfer_token_permissions_token_links_order_inv_fk` (`transfer_token_permission_order`);
+
+--
+-- Índices de tabela `strapi_webhooks`
+--
+ALTER TABLE `strapi_webhooks`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Índices de tabela `tipo_aplicacaos`
+--
+ALTER TABLE `tipo_aplicacaos`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `tipo_aplicacaos_created_by_id_fk` (`created_by_id`),
+  ADD KEY `tipo_aplicacaos_updated_by_id_fk` (`updated_by_id`);
+
+--
+-- Índices de tabela `tipo_aplicacaos_tipo_produto_antiparasitario_links`
+--
+ALTER TABLE `tipo_aplicacaos_tipo_produto_antiparasitario_links`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `tipo_aplicacaos_tipo_produto_antiparasitario_links_unique` (`tipo_aplicacao_id`,`tipo_produto_antiparasitario_id`),
+  ADD KEY `tipo_aplicacaos_tipo_produto_antiparasitario_links_fk` (`tipo_aplicacao_id`),
+  ADD KEY `tipo_aplicacaos_tipo_produto_antiparasitario_links_inv_fk` (`tipo_produto_antiparasitario_id`);
+
+--
+-- Índices de tabela `tipo_produto_antiparasitarios`
+--
+ALTER TABLE `tipo_produto_antiparasitarios`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `tipo_produto_antiparasitarios_created_by_id_fk` (`created_by_id`),
+  ADD KEY `tipo_produto_antiparasitarios_updated_by_id_fk` (`updated_by_id`);
+
+--
+-- Índices de tabela `tipo_vacinas`
+--
+ALTER TABLE `tipo_vacinas`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `tipo_vacinas_created_by_id_fk` (`created_by_id`),
+  ADD KEY `tipo_vacinas_updated_by_id_fk` (`updated_by_id`);
+
+--
+-- Índices de tabela `tratamento_medicos`
+--
+ALTER TABLE `tratamento_medicos`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `tratamento_medicos_created_by_id_fk` (`created_by_id`),
+  ADD KEY `tratamento_medicos_updated_by_id_fk` (`updated_by_id`);
+
+--
+-- Índices de tabela `tratamento_medicos_animal_links`
+--
+ALTER TABLE `tratamento_medicos_animal_links`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `tratamento_medicos_animal_links_unique` (`tratamento_medico_id`,`animal_id`),
+  ADD KEY `tratamento_medicos_animal_links_fk` (`tratamento_medico_id`),
+  ADD KEY `tratamento_medicos_animal_links_inv_fk` (`animal_id`);
+
+--
+-- Índices de tabela `tratamento_medicos_consulta_links`
+--
+ALTER TABLE `tratamento_medicos_consulta_links`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `tratamento_medicos_consulta_links_unique` (`tratamento_medico_id`,`consulta_id`),
+  ADD KEY `tratamento_medicos_consulta_links_fk` (`tratamento_medico_id`),
+  ADD KEY `tratamento_medicos_consulta_links_inv_fk` (`consulta_id`);
+
+--
+-- Índices de tabela `unidades`
+--
+ALTER TABLE `unidades`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `unidades_created_by_id_fk` (`created_by_id`),
+  ADD KEY `unidades_updated_by_id_fk` (`updated_by_id`);
+
+--
+-- Índices de tabela `upload_folders`
+--
+ALTER TABLE `upload_folders`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `upload_folders_path_id_index` (`path_id`),
+  ADD UNIQUE KEY `upload_folders_path_index` (`path`),
+  ADD KEY `upload_folders_created_by_id_fk` (`created_by_id`),
+  ADD KEY `upload_folders_updated_by_id_fk` (`updated_by_id`);
+
+--
+-- Índices de tabela `upload_folders_parent_links`
+--
+ALTER TABLE `upload_folders_parent_links`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `upload_folders_parent_links_unique` (`folder_id`,`inv_folder_id`),
+  ADD KEY `upload_folders_parent_links_fk` (`folder_id`),
+  ADD KEY `upload_folders_parent_links_inv_fk` (`inv_folder_id`),
+  ADD KEY `upload_folders_parent_links_order_inv_fk` (`folder_order`);
+
+--
+-- Índices de tabela `up_permissions`
+--
+ALTER TABLE `up_permissions`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `up_permissions_created_by_id_fk` (`created_by_id`),
+  ADD KEY `up_permissions_updated_by_id_fk` (`updated_by_id`);
+
+--
+-- Índices de tabela `up_permissions_role_links`
+--
+ALTER TABLE `up_permissions_role_links`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `up_permissions_role_links_unique` (`permission_id`,`role_id`),
+  ADD KEY `up_permissions_role_links_fk` (`permission_id`),
+  ADD KEY `up_permissions_role_links_inv_fk` (`role_id`),
+  ADD KEY `up_permissions_role_links_order_inv_fk` (`permission_order`);
+
+--
+-- Índices de tabela `up_roles`
+--
+ALTER TABLE `up_roles`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `up_roles_created_by_id_fk` (`created_by_id`),
+  ADD KEY `up_roles_updated_by_id_fk` (`updated_by_id`);
+
+--
+-- Índices de tabela `up_users`
+--
+ALTER TABLE `up_users`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `up_users_created_by_id_fk` (`created_by_id`),
+  ADD KEY `up_users_updated_by_id_fk` (`updated_by_id`);
+
+--
+-- Índices de tabela `up_users_role_links`
+--
+ALTER TABLE `up_users_role_links`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `up_users_role_links_unique` (`user_id`,`role_id`),
+  ADD KEY `up_users_role_links_fk` (`user_id`),
+  ADD KEY `up_users_role_links_inv_fk` (`role_id`),
+  ADD KEY `up_users_role_links_order_inv_fk` (`user_order`);
+
+--
+-- AUTO_INCREMENT para tabelas despejadas
+--
+
+--
+-- AUTO_INCREMENT de tabela `admin_permissions`
+--
+ALTER TABLE `admin_permissions`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=763;
+
+--
+-- AUTO_INCREMENT de tabela `admin_permissions_role_links`
+--
+ALTER TABLE `admin_permissions_role_links`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=763;
+
+--
+-- AUTO_INCREMENT de tabela `admin_roles`
+--
+ALTER TABLE `admin_roles`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de tabela `admin_users`
+--
+ALTER TABLE `admin_users`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de tabela `admin_users_roles_links`
+--
+ALTER TABLE `admin_users_roles_links`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+
+--
+-- AUTO_INCREMENT de tabela `animals`
+--
+ALTER TABLE `animals`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=106;
+
+--
+-- AUTO_INCREMENT de tabela `animals_alocacao_links`
+--
+ALTER TABLE `animals_alocacao_links`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=248;
+
+--
+-- AUTO_INCREMENT de tabela `animals_condutor_principal_links`
+--
+ALTER TABLE `animals_condutor_principal_links`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=253;
+
+--
+-- AUTO_INCREMENT de tabela `animals_condutor_secundario_links`
+--
+ALTER TABLE `animals_condutor_secundario_links`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=254;
+
+--
+-- AUTO_INCREMENT de tabela `animals_cor_animal_links`
+--
+ALTER TABLE `animals_cor_animal_links`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT de tabela `animals_especializacao_links`
+--
+ALTER TABLE `animals_especializacao_links`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT de tabela `animals_forma_aquisicao_links`
+--
+ALTER TABLE `animals_forma_aquisicao_links`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT de tabela `animals_raca_links`
+--
+ALTER TABLE `animals_raca_links`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
+-- AUTO_INCREMENT de tabela `animals_sexo_links`
+--
+ALTER TABLE `animals_sexo_links`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT de tabela `animals_status_operacional_links`
+--
+ALTER TABLE `animals_status_operacional_links`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
+-- AUTO_INCREMENT de tabela `animals_status_saude_links`
+--
+ALTER TABLE `animals_status_saude_links`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT de tabela `animal_aplicacaos`
+--
+ALTER TABLE `animal_aplicacaos`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
+
+--
+-- AUTO_INCREMENT de tabela `animal_aplicacaos_animal_links`
+--
+ALTER TABLE `animal_aplicacaos_animal_links`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=163;
+
+--
+-- AUTO_INCREMENT de tabela `animal_aplicacaos_tipo_aplicacao_links`
+--
+ALTER TABLE `animal_aplicacaos_tipo_aplicacao_links`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=158;
+
+--
+-- AUTO_INCREMENT de tabela `animal_tratamento_medicos`
+--
+ALTER TABLE `animal_tratamento_medicos`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT de tabela `animal_tratamento_medicos_animal_links`
+--
+ALTER TABLE `animal_tratamento_medicos_animal_links`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT de tabela `animal_tratamento_medicos_tratamento_medico_links`
+--
+ALTER TABLE `animal_tratamento_medicos_tratamento_medico_links`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT de tabela `animal_vacinas`
+--
+ALTER TABLE `animal_vacinas`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
+
+--
+-- AUTO_INCREMENT de tabela `animal_vacinas_animal_links`
+--
+ALTER TABLE `animal_vacinas_animal_links`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
+
+--
+-- AUTO_INCREMENT de tabela `animal_vacinas_nome_vacina_links`
+--
+ALTER TABLE `animal_vacinas_nome_vacina_links`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT de tabela `categoria_obs_saudes`
+--
+ALTER TABLE `categoria_obs_saudes`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `condutors`
+--
+ALTER TABLE `condutors`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT de tabela `condutors_unidade_links`
+--
+ALTER TABLE `condutors_unidade_links`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+
+--
+-- AUTO_INCREMENT de tabela `consultas`
+--
+ALTER TABLE `consultas`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+
+--
+-- AUTO_INCREMENT de tabela `consultas_animal_links`
+--
+ALTER TABLE `consultas_animal_links`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
+
+--
+-- AUTO_INCREMENT de tabela `consultas_users_permissions_user_links`
+--
+ALTER TABLE `consultas_users_permissions_user_links`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT de tabela `cor_animals`
+--
+ALTER TABLE `cor_animals`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT de tabela `doencas`
+--
+ALTER TABLE `doencas`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
+-- AUTO_INCREMENT de tabela `especializacaos`
+--
+ALTER TABLE `especializacaos`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT de tabela `e_alergicos`
+--
+ALTER TABLE `e_alergicos`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT de tabela `e_alergicos_animal_links`
+--
+ALTER TABLE `e_alergicos_animal_links`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT de tabela `e_alergicos_medicamento_links`
+--
+ALTER TABLE `e_alergicos_medicamento_links`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT de tabela `e_causados`
+--
+ALTER TABLE `e_causados`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de tabela `e_causados_doenca_links`
+--
+ALTER TABLE `e_causados_doenca_links`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de tabela `e_causados_tratamento_medico_links`
+--
+ALTER TABLE `e_causados_tratamento_medico_links`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT de tabela `files`
+--
+ALTER TABLE `files`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=851;
+
+--
+-- AUTO_INCREMENT de tabela `files_folder_links`
+--
+ALTER TABLE `files_folder_links`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=853;
+
+--
+-- AUTO_INCREMENT de tabela `files_related_morphs`
+--
+ALTER TABLE `files_related_morphs`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=765;
+
+--
+-- AUTO_INCREMENT de tabela `forma_aquisicaos`
+--
+ALTER TABLE `forma_aquisicaos`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT de tabela `i18n_locale`
+--
+ALTER TABLE `i18n_locale`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT de tabela `justificativa_baixas`
+--
+ALTER TABLE `justificativa_baixas`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+
+--
+-- AUTO_INCREMENT de tabela `justificativa_baixas_animal_links`
+--
+ALTER TABLE `justificativa_baixas_animal_links`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+
+--
+-- AUTO_INCREMENT de tabela `marca_vacinas`
+--
+ALTER TABLE `marca_vacinas`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+
+--
+-- AUTO_INCREMENT de tabela `marca_vacinas_tipo_vacina_links`
+--
+ALTER TABLE `marca_vacinas_tipo_vacina_links`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT de tabela `medicamentos`
+--
+ALTER TABLE `medicamentos`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT de tabela `possuis`
+--
+ALTER TABLE `possuis`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT de tabela `possuis_medicamento_links`
+--
+ALTER TABLE `possuis_medicamento_links`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT de tabela `possuis_tratamento_medico_links`
+--
+ALTER TABLE `possuis_tratamento_medico_links`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT de tabela `racaos`
+--
+ALTER TABLE `racaos`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de tabela `racas`
+--
+ALTER TABLE `racas`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de tabela `registros`
+--
+ALTER TABLE `registros`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `registro_obss`
+--
+ALTER TABLE `registro_obss`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `registro_obss_animal_links`
+--
+ALTER TABLE `registro_obss_animal_links`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `registro_obss_categoria_obs_saude_links`
+--
+ALTER TABLE `registro_obss_categoria_obs_saude_links`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `registro_tratamentos`
+--
+ALTER TABLE `registro_tratamentos`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `registro_tratamentos_registro_links`
+--
+ALTER TABLE `registro_tratamentos_registro_links`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `registro_tratamentos_tratamento_medico_links`
+--
+ALTER TABLE `registro_tratamentos_tratamento_medico_links`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `sexos`
+--
+ALTER TABLE `sexos`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de tabela `status_operacionals`
+--
+ALTER TABLE `status_operacionals`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT de tabela `status_saudes`
+--
+ALTER TABLE `status_saudes`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de tabela `strapi_api_tokens`
+--
+ALTER TABLE `strapi_api_tokens`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `strapi_api_token_permissions`
+--
+ALTER TABLE `strapi_api_token_permissions`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `strapi_api_token_permissions_token_links`
+--
+ALTER TABLE `strapi_api_token_permissions_token_links`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `strapi_core_store_settings`
+--
+ALTER TABLE `strapi_core_store_settings`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
+
+--
+-- AUTO_INCREMENT de tabela `strapi_database_schema`
+--
+ALTER TABLE `strapi_database_schema`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=163;
+
+--
+-- AUTO_INCREMENT de tabela `strapi_migrations`
+--
+ALTER TABLE `strapi_migrations`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `strapi_transfer_tokens`
+--
+ALTER TABLE `strapi_transfer_tokens`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `strapi_transfer_token_permissions`
+--
+ALTER TABLE `strapi_transfer_token_permissions`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `strapi_transfer_token_permissions_token_links`
+--
+ALTER TABLE `strapi_transfer_token_permissions_token_links`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `strapi_webhooks`
+--
+ALTER TABLE `strapi_webhooks`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `tipo_aplicacaos`
+--
+ALTER TABLE `tipo_aplicacaos`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+
+--
+-- AUTO_INCREMENT de tabela `tipo_aplicacaos_tipo_produto_antiparasitario_links`
+--
+ALTER TABLE `tipo_aplicacaos_tipo_produto_antiparasitario_links`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+
+--
+-- AUTO_INCREMENT de tabela `tipo_produto_antiparasitarios`
+--
+ALTER TABLE `tipo_produto_antiparasitarios`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de tabela `tipo_vacinas`
+--
+ALTER TABLE `tipo_vacinas`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+
+--
+-- AUTO_INCREMENT de tabela `tratamento_medicos`
+--
+ALTER TABLE `tratamento_medicos`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT de tabela `tratamento_medicos_animal_links`
+--
+ALTER TABLE `tratamento_medicos_animal_links`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de tabela `tratamento_medicos_consulta_links`
+--
+ALTER TABLE `tratamento_medicos_consulta_links`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de tabela `unidades`
+--
+ALTER TABLE `unidades`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT de tabela `upload_folders`
+--
+ALTER TABLE `upload_folders`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT de tabela `upload_folders_parent_links`
+--
+ALTER TABLE `upload_folders_parent_links`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `up_permissions`
+--
+ALTER TABLE `up_permissions`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=355;
+
+--
+-- AUTO_INCREMENT de tabela `up_permissions_role_links`
+--
+ALTER TABLE `up_permissions_role_links`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=355;
+
+--
+-- AUTO_INCREMENT de tabela `up_roles`
+--
+ALTER TABLE `up_roles`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT de tabela `up_users`
+--
+ALTER TABLE `up_users`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+
+--
+-- AUTO_INCREMENT de tabela `up_users_role_links`
+--
+ALTER TABLE `up_users_role_links`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
 
 --
 -- Restrições para tabelas despejadas
