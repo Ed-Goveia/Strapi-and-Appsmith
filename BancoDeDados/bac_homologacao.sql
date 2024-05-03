@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: host.docker.internal:3307
--- Tempo de geração: 03/05/2024 às 16:38
+-- Tempo de geração: 03/05/2024 às 16:46
 -- Versão do servidor: 8.3.0
 -- Versão do PHP: 8.2.8
 
@@ -17,10 +17,13 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
+DROP DATABASE IF EXISTS bac;
 
 --
 -- Banco de dados: `bac`
 --
+CREATE DATABASE IF NOT EXISTS `bac` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
+USE `bac`;
 
 -- --------------------------------------------------------
 
